@@ -1,0 +1,143 @@
+/* Instrumento.css */
+.instrumento-container {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #ddd;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.instrumento-img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 16px;
+}
+
+.instrumento-info {
+  flex: 1;
+}
+
+.instrumento-titulo {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.instrumento-precio {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.instrumento-envio {
+  color: orange;
+  font-size: 14px;
+}
+
+.instrumento-envio-gratis {
+  color: green;
+  font-size: 14px;
+}
+
+.instrumento-vendidos {
+  font-size: 14px;
+  color: #666;
+}
+
+
+/* Instrumento.css */
+.detalle-container {
+  display: flex;
+  gap: 40px;
+  padding: 40px;
+  font-family: 'Roboto', sans-serif;
+  background-color: #fff;
+  border-radius: 8px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.detalle-img {
+  width: 500px;
+  object-fit: contain;
+}
+
+.detalle-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: #333;
+}
+
+.detalle-info .vendidos {
+  font-size: 13px;
+  color: #888;
+}
+
+.detalle-info h2 {
+  font-size: 22px;
+  margin: 0;
+  font-weight: 500;
+}
+
+.detalle-info .precio {
+  font-size: 36px;
+  font-weight: 400;
+  margin: 10px 0;
+}
+
+.detalle-info .marca-modelo {
+  font-size: 14px;
+  color: #555;
+}
+
+.detalle-info .envio {
+  font-size: 16px;
+  color: green;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.detalle-info .descripcion {
+  margin-top: 20px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.detalle-info .boton-agregar {
+  margin-top: 20px;
+  background-color: #e0f0ff;
+  color: #0077cc;
+  border: 1px solid #cce7ff;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  width: fit-content;
+  transition: 0.3s;
+}
+
+.detalle-info .boton-agregar:hover {
+  background-color: #d0eaff;
+}
+
+.btn-ver-detalle{
+  margin-top: 20px;
+  background-color: #e0f0ff;
+  color: #0077cc;
+  border: 1px solid #cce7ff;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  width: fit-content;
+  transition: 0.3s;
+}
+.btn-ver-detalle:hover {
+  background-color: #d0eaff;
+}
