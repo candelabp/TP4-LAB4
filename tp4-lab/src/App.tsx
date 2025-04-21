@@ -5,6 +5,9 @@ import DetalleInstrumento from './components/DetalleInstrumento';
 import { InstrumentoType } from './components/types';
 import ListadoInstrumentos from './pages/ListadoInstrumentos';
 import Home from './pages/Home';
+import TablaInstrumentos from './pages/TablaInstrumentos';
+
+
 const App: React.FC = () => {
   const [instrumentos, setInstrumentos] = useState<InstrumentoType[]>([]);
 
@@ -30,6 +33,7 @@ const App: React.FC = () => {
         <Route path="/detalle/:id" element={<DetalleInstrumento />} />
         <Route path="/instrumentos" element={<ListadoInstrumentos />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/tabla" element={<TablaInstrumentos instrumentos={instrumentos} />} />
 
       </Routes>
     </Router>
