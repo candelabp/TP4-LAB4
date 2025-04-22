@@ -1,11 +1,11 @@
 export interface InstrumentoType {
-    id: string;
+    id: number;
     instrumento: string;
     marca: string;
     modelo: string;
     imagen: string;
-    precio: string;
+    precio: number;
     costoEnvio: string;
-    cantidadVendida: string;
+    cantidadVendida: number;
     descripcion: string;
   }

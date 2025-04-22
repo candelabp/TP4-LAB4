@@ -10,14 +10,16 @@ const DetalleInstrumento = () => {
   const { id } = useParams();
   const [instrumento, setInstrumento] = useState<InstrumentoType | null>(null);
 
-  useEffect(() => {
-    fetch('/instrumentos.json')
-      .then(res => res.json())
-      .then(data => {
-        const encontrado = data.instrumentos.find((i: InstrumentoType) => i.id === id);
-        setInstrumento(encontrado);
-      });
-  }, [id]);
+    // ...existing code...
+    useEffect(() => {
+      fetch(`http://localhost:8080/api/instrumentos/${id}`)
+        .then(res => res.json())
+        .then(data => {
+          setInstrumento(data);
+        })
+        .catch(error => console.error('Error fetching instrumento:', error));
+    }, [id]);
+  // ...existing code...
 
   if (!instrumento) return <p>Cargando...</p>;
 

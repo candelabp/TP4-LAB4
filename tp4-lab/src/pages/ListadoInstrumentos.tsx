@@ -7,9 +7,9 @@ const ListadoInstrumentos = () => {
   const [instrumentos, setInstrumentos] = useState<InstrumentoType[]>([]);
 
   useEffect(() => {
-    fetch('/instrumentos.json')
+    fetch('http://localhost:8080/api/instrumentos')
       .then(res => res.json())
-      .then(data => setInstrumentos(data.instrumentos));
+      .then(data => setInstrumentos(data));
   }, []);
 
   return (
