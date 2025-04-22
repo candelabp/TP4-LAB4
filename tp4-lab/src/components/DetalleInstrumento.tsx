@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { InstrumentoType } from './types';
 import '../instrumento.css';
@@ -10,7 +10,6 @@ const DetalleInstrumento = () => {
   const { id } = useParams();
   const [instrumento, setInstrumento] = useState<InstrumentoType | null>(null);
 
-    // ...existing code...
     useEffect(() => {
       fetch(`http://localhost:8080/api/instrumentos/${id}`)
         .then(res => res.json())
@@ -19,12 +18,14 @@ const DetalleInstrumento = () => {
         })
         .catch(error => console.error('Error fetching instrumento:', error));
     }, [id]);
-  // ...existing code...
 
   if (!instrumento) return <p>Cargando...</p>;
 
   return (
     <>
+    <Link to="/home" className="boton-volver">
+      Volver
+    </Link>
     <div className="detalle-container">
   <img className="detalle-img" src={getImage(instrumento.imagen)} alt={instrumento.instrumento} />
 
