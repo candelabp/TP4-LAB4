@@ -3,13 +3,14 @@ import { useEffect, useState } from 'react';
 import { InstrumentoType } from '../components/types';
 import Instrumento from '../components/Instrumento';
 import '../instrumento.css';
+import { fetchInstrumentos } from '../utils/fetchInstrumentos';
 const ListadoInstrumentos = () => {
   const [instrumentos, setInstrumentos] = useState<InstrumentoType[]>([]);
 
   useEffect(() => {
-    fetch('/instrumentos.json')
-      .then(res => res.json())
-      .then(data => setInstrumentos(data.instrumentos));
+    fetchInstrumentos()
+      .then(data => setInstrumentos(data))
+      .catch(err => console.error(err));
   }, []);
 
   return (

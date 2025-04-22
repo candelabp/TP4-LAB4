@@ -6,7 +6,7 @@ import { InstrumentoType } from './components/types';
 import ListadoInstrumentos from './pages/ListadoInstrumentos';
 import Home from './pages/Home';
 import TablaInstrumentos from './pages/TablaInstrumentos';
-import CompTablaInst from './components/CompTablaInst';
+// import CompTablaInst from './components/CompTablaInst';
 
 
 
@@ -36,7 +36,7 @@ const App: React.FC = () => {
         <Route path="/instrumentos" element={<ListadoInstrumentos />} />
         <Route path="/home" element={<Home />} />
         <Route path="/tabla" element={<TablaInstrumentos instrumentos={instrumentos} />} />
-        <Route path="/CompTablaInst" element={<CompTablaInst/>} />
+        {/* <Route path="/CompTablaInst" element={<CompTablaInst/>} /> */}
 
       </Routes>
     </Router>
