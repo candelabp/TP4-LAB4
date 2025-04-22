@@ -1,5 +1,4 @@
 import React from 'react';
-import CompTablaInst from '../components/CompTablaInst';
 import { InstrumentoType } from '../components/types';
 import "../styles/TablaInstrumentos.css";
 
@@ -31,7 +30,30 @@ const TablaInstrumentos: React.FC<TablaInstrumentosProps> = ({ instrumentos }) =
                 </thead>
                 <tbody>
                     {instrumentos.map((instrumento) => (
-                        <CompTablaInst key={instrumento.id} instrumento={instrumento} />
+                        <tr key={instrumento.id}>
+                            <td>
+                                <img
+                                    className="img"
+                                    src={new URL(`../assets/img/${instrumento.imagen}`, import.meta.url).href}
+                                    alt={instrumento.instrumento}
+                                />
+                            </td>
+                            <td>{instrumento.instrumento}</td>
+                            <td>{instrumento.marca}</td>
+                            <td>{instrumento.modelo}</td>
+                            <td>${instrumento.precio}</td>
+                            <td>{instrumento.activo ? "Sí" : "No"}</td>
+                            <td>{instrumento.categoria?.nombre || "Sin categoría"}</td>
+                            <td>
+                                <button className="icon">Ver</button>
+                            </td>
+                            <td>
+                                <button className="icon">Editar</button>
+                            </td>
+                            <td>
+                                <button className="icon">Eliminar</button>
+                            </td>
+                        </tr>
                     ))}
                 </tbody>
             </table>

@@ -76,3 +76,155 @@
     justify-content: center;
     background-color: #f9f9f9;
 }
+
+/* CompTablaInst */
+
+/* Modal styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.contenedorModal {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 50%;
+    max-width: 600px;
+    max-height: 80%; /* Limita la altura máxima al 80% */
+    overflow-y: auto; /* Agrega scroll vertical si el contenido excede la altura */
+    padding: 20px;
+    font-family: Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #dababa;
+    padding-bottom: 10px;
+}
+
+.modal-header h2 {
+    color: #503838;
+    margin: 0;
+}
+
+.cerrar-modal {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #503838;
+}
+
+.modalAgregarProducto {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    scrollbar-width: thin;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-group label {
+    color: #503838;
+    font-weight: bold;
+}
+
+.form-group input {
+    padding: 8px;
+    border: 1px solid #dababa;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #503838;
+}
+
+.checkbox-group {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkbox-group input {
+    width: auto;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-cancelar {
+    background-color: #f9f9f9;
+    border: 1px solid #503838;
+    border-radius: 4px;
+    color: #503838;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-cancelar:hover {
+    background-color: #e6e6e6;
+}
+
+.btn-agregar {
+    background-color: #dababa;
+    border: 1px solid #503838;
+    border-radius: 4px;
+    color: #503838;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-agregar:hover {
+    background-color: #503838;
+    color: white;
+}
+
+.buttonAgregarProducto{
+    background-color: #dababa;
+    border-radius: 32px;
+    width: 40px;
+    height: 40px;
+    font-size: 2rem;
+    position: fixed;
+    top: 85%;
+    left: 90%;
+    border: none;
+    font-weight: 300;
+    transition-duration: 0.5s;
+    cursor: pointer ;
+}
+
+.buttonAgregarProducto:hover{
+    scale: 1.15;
+}
+
+.selectFormModal{
+    padding: 8px;
+    border: 1px solid #dababa;
+    border-radius: 4px;
+    background-color: white;
+}
