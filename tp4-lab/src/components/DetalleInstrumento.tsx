@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { InstrumentoType } from './types';
 import { fetchInstrumentos } from '../utils/fetchInstrumentos';
@@ -42,6 +42,7 @@ const DetalleInstrumento = () => {
           <p><strong>Descripción:</strong></p>
           <p>{instrumento.descripcion}</p>
         </div>
+        <Link to="/home" className="boton-volver">Volver al Home</Link>
       </div>
     </div>
   );

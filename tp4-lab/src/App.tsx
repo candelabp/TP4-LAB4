@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Instrumento from './components/Instrumento';
 import DetalleInstrumento from './components/DetalleInstrumento';
 import { InstrumentoType } from './components/types';
@@ -17,6 +17,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<Navigate to="/home" replace />} />
         <Route
           path="/"
           element={
@@ -30,7 +31,6 @@ const App: React.FC = () => {
         <Route path="/detalle/:id" element={<DetalleInstrumento />} />
         <Route path="/instrumentos" element={<ListadoInstrumentos />} />
         <Route path="/home" element={<Home />} />
-
       </Routes>
     </Router>
   );
