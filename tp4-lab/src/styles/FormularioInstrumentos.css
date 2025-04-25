@@ -1,0 +1,86 @@
+/* Puedes importar este archivo en FormularioInstrumento.tsx o agregarlo a tu CSS global */
+
+.formulario-instrumento-modal {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 24px;
+    background: transparent;
+}
+
+.formulario-instrumento-modal h2 {
+    grid-column: 1 / -1;
+    color: #1976d2;
+    margin-bottom: 12px;
+    text-align: center;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.form-buttons {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    color: #1976d2;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.form-group input,
+.form-group select {
+    padding: 10px;
+    border: 1px solid #bdbdbd;
+    border-radius: 6px;
+    background: #faf7f7;
+    font-size: 1rem;
+    transition: border 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #1976d2;
+    background: #e3f2fd;
+}
+
+
+.btn-cancelar,
+.btn-guardar {
+    padding: 10px 22px;
+    border-radius: 6px;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.btn-cancelar {
+    background: #f9f9f9;
+    color: #1976d2;
+    border: 1px solid #1976d2;
+}
+
+.btn-cancelar:hover {
+    background: #e6e6e6;
+}
+
+.btn-guardar {
+    background: #1976d2;
+    color: #fff;
+    border: 1px solid #1976d2;
+}
+
+.btn-guardar:hover {
+    background: #125ea7;
+    color: #fff;
+}

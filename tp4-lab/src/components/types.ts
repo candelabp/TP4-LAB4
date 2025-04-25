@@ -1,3 +1,8 @@
+export interface CategoriaType {
+  id: number;
+  nombre: string;
+}
+
 export interface InstrumentoType {
   id: string;
   instrumento: string;
@@ -9,8 +14,5 @@ export interface InstrumentoType {
   costoEnvio: string;
   cantidadVendida: number;
   activo: boolean;
-  categoria: {
-      id: number;
-      nombre: string;
-  };
+  categoria?: CategoriaType; 
 }

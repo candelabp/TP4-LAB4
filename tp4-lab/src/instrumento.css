@@ -141,3 +141,20 @@
 .btn-ver-detalle:hover {
   background-color: #d0eaff;
 }
+
+.boton-volver {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  font-family: 'Roboto', sans-serif;
+}
+
+.boton-volver:hover {
+  background-color: #0056b3;
+}

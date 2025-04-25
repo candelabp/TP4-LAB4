@@ -12,10 +12,18 @@ const getImage = (imageName: string) => {
 
 const Instrumento: React.FC<Props> = ({ instrumento }) => {
   return (
-    
-   
+
+
     <div className="instrumento-container">
-      <img className="instrumento-img" src={getImage(instrumento.imagen)} alt={instrumento.instrumento} />
+      <img
+        className="instrumento-img"
+        src={
+          instrumento.imagen.trim().toLowerCase().startsWith('http')
+            ? instrumento.imagen.trim()
+            : getImage(instrumento.imagen.trim())
+        }
+        alt={instrumento.instrumento}
+      />
 
       <div className="instrumento-info">
         <h2 className="instrumento-titulo">{instrumento.instrumento}</h2>
@@ -30,14 +38,14 @@ const Instrumento: React.FC<Props> = ({ instrumento }) => {
 
         <p className="instrumento-vendidos">{instrumento.cantidadVendida} vendidos</p>
         <Link to={`/detalle/${instrumento.id}`}>
-        <button className='btn-ver-detalle'>Ver Detalle</button>
-      </Link>
+          <button className='btn-ver-detalle'>Ver Detalle</button>
+        </Link>
       </div>
     </div>
-  
+
   );
 };
 
 export default Instrumento;
 
-  
+

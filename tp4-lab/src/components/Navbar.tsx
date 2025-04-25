@@ -1,14 +1,20 @@
 import '../navbar.css';
+import { useNavigate } from 'react-router-dom';
 
 export const Navbar = () => {
+  const navigate = useNavigate();
+
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <a href="#inicio" className="navbar-logo">Musical Hendrix</a>
+        <span className="navbar-logo" style={{ cursor: 'pointer' }} onClick={() => navigate('/home')}>
+          Musical Hendrix
+        </span>
         <ul className="navbar-menu">
-          <li><a href="#inicio">Inicio</a></li>
-          <li><a href="#productos">Productos</a></li>
-          <li><a href="#donde-estamos">Dónde estamos</a></li>
+          <li><button className="navbar-link-btn" onClick={() => navigate('/home')}>Inicio</button></li>
+          <li><button className="navbar-link-btn" onClick={() => navigate('/home#productos')}>Productos</button></li>
+          <li><button className="navbar-link-btn" onClick={() => navigate('/home#donde-estamos')}>Dónde estamos</button></li>
+          <li><button className="navbar-link-btn" onClick={() => navigate('/tabla')}>Admin</button></li>
         </ul>
       </div>
     </nav>
