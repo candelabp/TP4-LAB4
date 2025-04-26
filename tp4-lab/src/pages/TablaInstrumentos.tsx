@@ -5,6 +5,7 @@ import { fetchCategorias } from '../utils/fetchCategorias';
 import { fetchInstrumentos } from '../utils/fetchInstrumentos';
 import "../styles/TablaInstrumentos.css";
 import FormularioInstrumento from '../components/FormularioInstrumento';
+import Navbar from '../components/Navbar';
 
 const TablaInstrumentos: React.FC = () => {
     const [instrumentos, setInstrumentos] = useState<InstrumentoType[]>([]);
@@ -12,6 +13,7 @@ const TablaInstrumentos: React.FC = () => {
     const [categoriaSeleccionada, setCategoriaSeleccionada] = useState<string>('');
     const [mostrarFormulario, setMostrarFormulario] = useState(false);
     const [instrumentoEditar, setInstrumentoEditar] = useState<InstrumentoType | null>(null);
+    const [filtroActivo, setFiltroActivo] = useState<string>('todos');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -19,9 +21,21 @@ const TablaInstrumentos: React.FC = () => {
         fetchCategorias().then(setCategorias);
     }, []);
 
-    const instrumentosFiltrados = categoriaSeleccionada
-        ? instrumentos.filter(i => i.activo && String(i.categoria?.id) === categoriaSeleccionada)
-        : instrumentos.filter(i => i.activo);
+    useEffect(() => {
+        // Cuando cambia el filtroActivo, recarga los instrumentos
+        fetchInstrumentos().then(setInstrumentos);
+    }, [filtroActivo]);
+
+    const instrumentosFiltrados = instrumentos.filter(i => {
+        const categoriaOk = categoriaSeleccionada ? String(i.categoria?.id) === categoriaSeleccionada : true;
+        const activoOk =
+            filtroActivo === 'todos'
+                ? true
+                : filtroActivo === 'activos'
+                    ? i.activo
+                    : !i.activo;
+        return categoriaOk && activoOk;
+    });
 
     const handleEliminar = async (id: string) => {
         if (window.confirm('¿Seguro que deseas eliminar este instrumento?')) {
@@ -30,7 +44,6 @@ const TablaInstrumentos: React.FC = () => {
         }
     };
 
-    // Editar instrumento
     const handleEditar = (inst: InstrumentoType) => {
         setInstrumentoEditar(inst);
         setMostrarFormulario(true);
@@ -38,7 +51,6 @@ const TablaInstrumentos: React.FC = () => {
 
     const handleSubmit = async (nuevo: InstrumentoType) => {
         if (instrumentoEditar) {
-            // PUT para editar
             await fetch(`http://localhost:8080/api/instrumentos/${instrumentoEditar.id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
@@ -46,7 +58,6 @@ const TablaInstrumentos: React.FC = () => {
             });
             setInstrumentoEditar(null);
         } else {
-            // POST para agregar
             await fetch('http://localhost:8080/api/instrumentos', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -54,16 +65,16 @@ const TablaInstrumentos: React.FC = () => {
             });
         }
         setMostrarFormulario(false);
-        // Recargar la lista desde el backend
         const nuevosInstrumentos = await fetchInstrumentos();
         setInstrumentos(nuevosInstrumentos);
     };
 
-    // Cerrar modal
     const handleClose = () => {
         setMostrarFormulario(false);
         setInstrumentoEditar(null);
     };
+
+
 
     return (
         <div className="tabla-instrumentos-container">
@@ -88,6 +99,16 @@ const TablaInstrumentos: React.FC = () => {
                     {categorias.map(cat => (
                         <option key={cat.id} value={cat.id}>{cat.nombre}</option>
                     ))}
+                </select>
+                <label style={{ marginLeft: 16 }}>Filtrar por estado: </label>
+                <select
+                    value={filtroActivo}
+                    onChange={e => setFiltroActivo(e.target.value)}
+                    style={{ marginLeft: 4 }}
+                >
+                    <option value="todos">Todos</option>
+                    <option value="activos">Activos</option>
+                    <option value="noactivos">No activos</option>
                 </select>
             </div>
             {mostrarFormulario && (
@@ -143,7 +164,26 @@ const TablaInstrumentos: React.FC = () => {
                                 <button className="icon" onClick={() => handleEditar(instrumento)}>Editar</button>
                             </td>
                             <td>
-                                <button className="icon" onClick={() => handleEliminar(instrumento.id)}>Eliminar</button>
+                                {filtroActivo === "noactivos" ? (
+                                    <button
+                                        className="icon"
+                                        onClick={async () => {
+                                            // Cambiar el estado a activo
+                                            await fetch(`http://localhost:8080/api/instrumentos/${instrumento.id}`, {
+                                                method: 'PUT',
+                                                headers: { 'Content-Type': 'application/json' },
+                                                body: JSON.stringify({ ...instrumento, activo: true }),
+                                            });
+                                            // Recargar instrumentos
+                                            const nuevosInstrumentos = await fetchInstrumentos();
+                                            setInstrumentos(nuevosInstrumentos);
+                                        }}
+                                    >
+                                        Activar
+                                    </button>
+                                ) : (
+                                    <button className="icon" onClick={() => handleEliminar(instrumento.id)}>Eliminar</button>
+                                )}
                             </td>
                         </tr>
                     ))}

@@ -48,7 +48,9 @@ const DetalleInstrumento = () => {
         ) : (
           <p>${instrumento.costoEnvio}</p>
         )}
-        <button className="boton-agregar">Agregar al carrito</button>
+        {!fromTabla && (
+          <button className="boton-agregar">Agregar al carrito</button>
+        )}
         <div className="descripcion">
           <p><strong>Descripción:</strong></p>
           <p>{instrumento.descripcion}</p>

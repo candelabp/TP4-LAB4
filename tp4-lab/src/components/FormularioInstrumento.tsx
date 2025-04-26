@@ -96,6 +96,17 @@ const FormularioInstrumento: React.FC<Props> = ({ categorias, onSubmit, onClose,
         <label>Cantidad Vendida</label>
         <input name="cantidadVendida" type="number" value={form.cantidadVendida} onChange={handleChange} required />
       </div>
+      <div className="form-group">
+        <label>
+          <input
+            type="checkbox"
+            name="activo"
+            checked={form.activo}
+            onChange={handleChange}
+          />
+          Activo
+        </label>
+        </div>
       <div className="form-buttons">
         <button type="submit" className="btn-guardar">Guardar</button>
         <button type="button" className="btn-cancelar" onClick={onClose}>Cancelar</button>
