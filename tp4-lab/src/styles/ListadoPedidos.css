@@ -1,0 +1,70 @@
+.listado-pedidos-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.pedido-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    background-color: #f9f9f9;
+}
+
+.pedido-card p {
+    margin: 4px 0;
+}
+
+.filtro-orden {
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.filtro-orden label {
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.filtro-orden select {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.filtro-orden select:hover {
+    border-color: #007bff;
+}
+
+.btn-ver-detalles {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+.btn-ver-detalles:hover {
+    background-color: #0056b3;
+}
+
+.btn-volver {
+    display: inline-block;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 16px;
+    text-align: center;
+}
+
+.btn-volver:hover {
+    background-color: #5a6268;
+}

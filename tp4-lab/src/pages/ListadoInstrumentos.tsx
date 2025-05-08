@@ -13,16 +13,18 @@ const ListadoInstrumentos = () => {
       .catch(err => console.error(err));
   }, []);
 
+
   return (
-    <>
-      <div className="lista-instrumentos">
-        {instrumentos
-          .filter(inst => inst.activo) // Solo instrumentos activos
-          .map((inst) => (
-            <Instrumento key={inst.id} instrumento={inst} />
+    <div className="lista-instrumentos">
+      {instrumentos
+        .filter(inst => inst.activo) // Solo instrumentos activos
+        .map(inst => (
+          <Instrumento
+            key={inst.id}
+            instrumento={inst}
+          />
         ))}
-      </div>
-    </>
+    </div>
   );
 };
 

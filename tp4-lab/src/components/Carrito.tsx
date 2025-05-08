@@ -1,74 +1,70 @@
-import { use, useEffect, useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../styles/carrito.css';
-
-interface DetallePedido {
-    id: number;
-    cantidad: number;
-    subTotal: number;
-    productoId: number;
-}
+import { useCarrito } from '../context/CarritoContext';
 
 type Props = {
   onClose: () => void;
 };
 
 const Carrito: React.FC<Props> = ({ onClose }) => {
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const [detallePedido, setDetallePedido] = useState<DetallePedido[]>([]);
+  const { carrito, eliminarDelCarrito, vaciarCarrito, setCarrito } = useCarrito();
   const navigate = useNavigate();
 
-  /*useEffect(() => {
-    const fetchDetallePedido = async () => {
-      try {
-        const response = await axios.get('');
-        setDetallePedido(response.data);
-      } catch (error) {
-        setError('Error al cargar los detalles del pedido');
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchDetallePedido();
-  }
-  , []);*/
-
-  const precioUnitario = 100; // suponiendo precio fijo 100
-  const incrementarCantidad = (id: number) => {
-    setDetallePedido(prev =>
+  const handleIncrementar = (id: string | number) => {
+    setCarrito(prev =>
       prev.map(item =>
-        item.id === id
-          ? { ...item, cantidad: item.cantidad + 1, subTotal: (item.cantidad + 1) * precioUnitario }
+        Number(item.instrumento.id) === Number(id)
+          ? { ...item, cantidad: item.cantidad + 1 }
           : item
       )
     );
   };
-
-  const decrementarCantidad = (id: number) => {
-    setDetallePedido(prev =>
+  
+  const handleDecrementar = (id: string | number) => {
+    setCarrito(prev =>
       prev.map(item =>
-        item.id === id && item.cantidad > 1
-          ? { ...item, cantidad: item.cantidad - 1, subTotal: (item.cantidad - 1) * precioUnitario }
+        Number(item.instrumento.id) === Number(id) && item.cantidad > 1
+          ? { ...item, cantidad: item.cantidad - 1 }
           : item
       )
     );
-  };
-
-  const eliminarItem = (id: number) => {
-    setDetallePedido(prev => prev.filter(item => item.id !== id));
   };
 
   const handleCancelarPedido = () => {
-    const confirmacion = window.confirm("¿Deseas cancelar el pedido?");
+    const confirmacion = window.confirm('¿Deseas cancelar el pedido?');
     if (confirmacion) {
+      vaciarCarrito();
       navigate('/');
       onClose();
     }
-  }
+  };
 
-  const Total = detallePedido.reduce((subtotal, item) => subtotal + item.subTotal, 0);
+  const handleConfirmarPedido = async () => {
+    try {
+      const pedido = {
+        detallePedidos: carrito.map(item => ({
+          cantidad: item.cantidad,
+          instrumentoId: Number(item.instrumento.id),
+        })),
+      };
+
+      await fetch('http://localhost:8080/api/pedidos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(pedido),
+      });
+      alert('Pedido realizado correctamente');
+      vaciarCarrito();
+      onClose();
+    } catch (error) {
+      alert('Error al realizar el pedido');
+    }
+  };
+
+  const Total = carrito.reduce(
+    (subtotal, item) => subtotal + item.instrumento.precio * item.cantidad,
+    0
+  );
 
   return (
     <div>
@@ -76,32 +72,30 @@ const Carrito: React.FC<Props> = ({ onClose }) => {
       <h2 className="titulo-pedido">MI ORDEN</h2>
 
       <div className="contenedor-items">
-        {loading &&
-          <p className="mensaje-carga">Cargando pedido...</p>
-        }
-        {error &&
-          <p className="mensaje-error">{error}</p>
-        }
-        {!loading && detallePedido.map((item: DetallePedido) => (
-          <div key={item.id} className="item-pedido">
-            <img src="" alt="" className="imagen-item" />
-            <div className="detalles-item">
-              <p className="nombre-item">{item.productoId}</p>
-              <p className="subtotal-item">Subtotal: ${item.subTotal}</p>
-            </div>
-            <div className="controles-item">
-              <div className="controles-cantidad">
-                <button onClick={() => decrementarCantidad(item.id)} className="boton-decrementar">–</button>
-                <span className="cantidad-item">{item.cantidad}</span>
-                <button onClick={() => incrementarCantidad(item.id)} className="boton-incrementar">+</button>
+        {carrito.length === 0 ? (
+          <p className="mensaje-carga">El carrito está vacío.</p>
+        ) : (
+          carrito.map(item => (
+            <div key={item.instrumento.id} className="item-pedido">
+              <div className="detalles-item">
+                <p className="nombre-item">Instrumento: {item.instrumento.instrumento}</p>
+                <p className="precio-item">Precio: ${item.instrumento.precio}</p>
+                <p className="subtotal-item">Subtotal: ${item.instrumento.precio * item.cantidad}</p>
               </div>
-              <button onClick={() => eliminarItem(item.id)}
-                className="boton-eliminar">
-                Eliminar
-              </button>
+              <div className="controles-item">
+                <button onClick={() => handleDecrementar(item.instrumento.id)}>-</button>
+                <span className="cantidad-item">Cantidad: {item.cantidad}</span>
+                <button onClick={() => handleIncrementar(item.instrumento.id)}>+</button>
+                <button
+                  onClick={() => eliminarDelCarrito(Number(item.instrumento.id))}
+                  className="boton-eliminar"
+                >
+                  Eliminar
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
 
       <div className="resumen-pedido">
@@ -110,11 +104,15 @@ const Carrito: React.FC<Props> = ({ onClose }) => {
           <p className="valor-subtotal">${Total}</p>
         </div>
 
-        <button className="boton-confirmar">Realizar pedido</button>
-        <button onClick={handleCancelarPedido} className="boton-cancelar">Cancelar pedido</button>
+        <button onClick={handleConfirmarPedido} className="boton-confirmar">
+          Realizar pedido
+        </button>
+        <button onClick={handleCancelarPedido} className="boton-cancelar">
+          Cancelar pedido
+        </button>
       </div>
     </div>
   );
-}
+};
 
 export default Carrito;

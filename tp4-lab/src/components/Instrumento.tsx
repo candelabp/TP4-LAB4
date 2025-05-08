@@ -2,6 +2,8 @@ import React from 'react';
 import { InstrumentoType } from './types';
 import '../instrumento.css';
 import { Link } from 'react-router-dom';
+import { useCarrito } from '../context/CarritoContext';
+
 interface Props {
   instrumento: InstrumentoType;
 }
@@ -11,9 +13,9 @@ const getImage = (imageName: string) => {
 };
 
 const Instrumento: React.FC<Props> = ({ instrumento }) => {
+  const { agregarAlCarrito } = useCarrito();
+
   return (
-
-
     <div className="instrumento-container">
       <img
         className="instrumento-img"
@@ -29,7 +31,6 @@ const Instrumento: React.FC<Props> = ({ instrumento }) => {
         <h2 className="instrumento-titulo">{instrumento.instrumento}</h2>
         <p className="instrumento-precio">${instrumento.precio}</p>
 
-        {/* Costo de envío */}
         {instrumento.costoEnvio === 'G' ? (
           <p className="instrumento-envio-gratis">Envío gratis a todo el país</p>
         ) : (
@@ -37,15 +38,20 @@ const Instrumento: React.FC<Props> = ({ instrumento }) => {
         )}
 
         <p className="instrumento-vendidos">{instrumento.cantidadVendida} vendidos</p>
-        <Link to={`/detalle/${instrumento.id}`}>
-          <button className='btn-ver-detalle'>Ver Detalle</button>
-        </Link>
+        <div className="botones">
+          <Link to={`/detalle/${instrumento.id}`}>
+            <button className="btn-ver-detalle">Ver Detalle</button>
+          </Link>
+          <button
+            className="btn-ver-detalle"
+            onClick={() => agregarAlCarrito(instrumento)}
+          >
+            Agregar al carrito
+          </button>
+        </div>
       </div>
     </div>
-
   );
 };
 
 export default Instrumento;
-
-

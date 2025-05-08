@@ -5,7 +5,7 @@ import { fetchCategorias } from '../utils/fetchCategorias';
 import { fetchInstrumentos } from '../utils/fetchInstrumentos';
 import "../styles/TablaInstrumentos.css";
 import FormularioInstrumento from '../components/FormularioInstrumento';
-import Navbar from '../components/Navbar';
+// import Navbar from '../components/Navbar';
 
 const TablaInstrumentos: React.FC = () => {
     const [instrumentos, setInstrumentos] = useState<InstrumentoType[]>([]);

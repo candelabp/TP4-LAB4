@@ -20,7 +20,16 @@ export const Navbar = () => {
             <li><button className="navbar-link-btn" onClick={() => navigate('/home#productos')}>Productos</button></li>
             <li><button className="navbar-link-btn" onClick={() => navigate('/home#donde-estamos')}>Dónde estamos</button></li>
             <li><button className="navbar-link-btn" onClick={() => navigate('/tabla')}>Admin</button></li>
-            <li><button className="navbar-link-btn" onClick={() => setCarritoVisible(true)}><img className="carritoIcono" src={carritoIcono} alt="Carrito" /></button></li>
+            <li>
+              <button className="navbar-link-btn" onClick={() => navigate('/pedidos')}>
+                Pedidos
+              </button>
+            </li>
+            <li>
+              <button className="navbar-link-btn" onClick={() => setCarritoVisible(true)}>
+                <img className="carritoIcono" src={carritoIcono} alt="Carrito" />
+              </button>
+            </li>
           </ul>
         </div>
       </nav>
