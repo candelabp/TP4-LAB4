@@ -67,8 +67,18 @@
 
 .controles-item {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+    justify-content: space-around;
+    align-items: center;
+    gap: 15px;
+}
+
+.controles-item button {
+    background-color: #1f2937;
+    border: 1px solid #1f2937;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    cursor: pointer;
 }
 
 .controles-cantidad {
@@ -124,6 +134,19 @@
     padding: 0.5rem 1rem;
     border-radius: 9999px;
     width: 100%;
+}
+
+.boton-cancelar:disabled {
+    background-color: #d1d5db;
+    color: #9ca3af;
+    cursor: not-allowed;
+    border: none
+}
+.boton-confirmar:disabled {
+    background-color: #d1d5db;
+    color: #9ca3af;
+    cursor: not-allowed;
+    border: none
 }
 
 .boton-cancelar {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../styles/ListadoInstrumentos.css'; // Reutilizamos los estilos de instrumentos
+import '../styles/ListadoInstrumentos.css';
 
 const DetallePedido: React.FC = () => {
   const { id } = useParams<{ id: string }>();

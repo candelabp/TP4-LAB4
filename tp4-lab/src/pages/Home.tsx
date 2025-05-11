@@ -1,5 +1,5 @@
 import Navbar from "../components/Navbar";
-import "../styles/Home.css"; // Asegurate de tener este CSS
+import "../styles/Home.css";
 import Instrumento from "../assets/img/instrumento.jpg";
 import Instrumento2 from "../assets/img/instrumento2.jpg";
 import Instrumento3 from "../assets/img/donde-comprar-instrumentos-musicales-en-zona-oeste.jpg";

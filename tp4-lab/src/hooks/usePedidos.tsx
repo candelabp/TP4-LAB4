@@ -23,7 +23,7 @@ export interface DetallePedidoDTO {
   id: number;
   cantidad: number;
   subTotal: number;
-  instrumento: InstrumentoDTO; // Incluye los detalles del instrumento
+  instrumento: InstrumentoDTO;
 }
 
 export interface PedidoDTO {
