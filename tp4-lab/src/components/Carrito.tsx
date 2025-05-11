@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import '../styles/carrito.css';
 import { useCarrito } from '../context/CarritoContext';
+import  Pedido  from '../Entidades/Pedido';
+import  PedidoDetalle  from '../Entidades/PedidoDetalle';
 
 type Props = {
   onClose: () => void;
@@ -39,27 +41,36 @@ const Carrito: React.FC<Props> = ({ onClose }) => {
     }
   };
 
-  const handleConfirmarPedido = async () => {
-    try {
-      const pedido = {
-        detallePedidos: carrito.map(item => ({
-          cantidad: item.cantidad,
-          instrumentoId: Number(item.instrumento.id),
-        })),
-      };
+const handleConfirmarPedido = async () => {
+  try {
+    const pedido = new Pedido();
+    pedido.totalPedido = Total;
 
-      await fetch('http://localhost:8080/api/pedidos', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(pedido),
-      });
-      alert('Pedido realizado correctamente');
-      vaciarCarrito();
-      onClose();
-    } catch (error) {
-      alert('Error al realizar el pedido');
-    }
-  };
+    pedido.detallePedidos = carrito.map(item => {
+      const detalle = new PedidoDetalle();
+      detalle.cantidad = item.cantidad;
+      detalle.instrumentoId = item.instrumento.id;
+      return detalle;
+    });
+
+    const response = await fetch('http://localhost:8080/api/pedidos', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(pedido),
+    });
+
+    if (!response.ok) throw new Error("Error al guardar el pedido");
+
+    const data = await response.json(); // Esperás un objeto con el ID
+
+    alert(`El pedido con id ${data.id} se guardó correctamente`);
+    vaciarCarrito();
+    onClose();
+  } catch (error) {
+    alert('Error al realizar el pedido');
+    console.error(error);
+  }
+};
 
   const Total = carrito.reduce(
     (subtotal, item) => subtotal + item.instrumento.precio * item.cantidad,
