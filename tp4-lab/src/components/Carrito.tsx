@@ -3,7 +3,7 @@ import '../styles/carrito.css';
 import { useCarrito } from '../context/CarritoContext';
 import  Pedido  from '../Entidades/Pedido';
 import  PedidoDetalle  from '../Entidades/PedidoDetalle';
-
+import CheckoutMP from './CheckoutMP';
 type Props = {
   onClose: () => void;
 };
@@ -115,6 +115,7 @@ const handleConfirmarPedido = async () => {
         <button onClick={handleConfirmarPedido} className="boton-confirmar"  disabled={carrito.length === 0}>
           Realizar pedido
         </button>
+        <CheckoutMP montoCarrito={Total} />
         <button onClick={handleCancelarPedido} className="boton-cancelar" disabled={carrito.length === 0}>
           Cancelar pedido
         </button>
