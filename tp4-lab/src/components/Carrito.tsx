@@ -61,9 +61,7 @@ const handleConfirmarPedido = async () => {
 
     if (!response.ok) throw new Error("Error al guardar el pedido");
 
-    const data = await response.json(); // Esperás un objeto con el ID
-
-    alert(`El pedido con id ${data.id} se guardó correctamente`);
+    alert(`El pedido se guardó correctamente`);
     vaciarCarrito();
     onClose();
   } catch (error) {
