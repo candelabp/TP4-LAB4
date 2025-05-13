@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import '../styles/carrito.css';
 import { useCarrito } from '../context/CarritoContext';
-import  Pedido  from '../Entidades/Pedido';
-import  PedidoDetalle  from '../Entidades/PedidoDetalle';
+import Pedido from '../Entidades/Pedido';
+import PedidoDetalle from '../Entidades/PedidoDetalle';
 import CheckoutMP from './CheckoutMP';
 type Props = {
   onClose: () => void;
@@ -21,7 +21,7 @@ const Carrito: React.FC<Props> = ({ onClose }) => {
       )
     );
   };
-  
+
   const handleDecrementar = (id: string | number) => {
     setCarrito(prev =>
       prev.map(item =>
@@ -41,34 +41,34 @@ const Carrito: React.FC<Props> = ({ onClose }) => {
     }
   };
 
-const handleConfirmarPedido = async () => {
-  try {
-    const pedido = new Pedido();
-    pedido.totalPedido = Total;
+  const handleConfirmarPedido = async () => {
+    try {
+      const pedido = new Pedido();
+      pedido.totalPedido = Total;
 
-    pedido.detallePedidos = carrito.map(item => {
-      const detalle = new PedidoDetalle();
-      detalle.cantidad = item.cantidad;
-      detalle.instrumentoId = item.instrumento.id;
-      return detalle;
-    });
+      pedido.detallePedidos = carrito.map(item => {
+        const detalle = new PedidoDetalle();
+        detalle.cantidad = item.cantidad;
+        detalle.instrumentoId = item.instrumento.id;
+        return detalle;
+      });
 
-    const response = await fetch('http://localhost:8080/api/pedidos', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(pedido),
-    });
+      const response = await fetch('http://localhost:8080/api/pedidos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(pedido),
+      });
 
-    if (!response.ok) throw new Error("Error al guardar el pedido");
+      if (!response.ok) throw new Error("Error al guardar el pedido");
 
-    alert(`El pedido se guardó correctamente`);
-    vaciarCarrito();
-    onClose();
-  } catch (error) {
-    alert('Error al realizar el pedido');
-    console.error(error);
-  }
-};
+      alert(`El pedido se guardó correctamente`);
+      vaciarCarrito();
+      onClose();
+    } catch (error) {
+      alert('Error al realizar el pedido');
+      console.error(error);
+    }
+  };
 
   const Total = carrito.reduce(
     (subtotal, item) => subtotal + item.instrumento.precio * item.cantidad,
@@ -99,8 +99,8 @@ const handleConfirmarPedido = async () => {
               <div>
                 <button onClick={() => eliminarDelCarrito(Number(item.instrumento.id))} className="boton-eliminar" > Eliminar </button>
               </div>
-                
-              
+
+
             </div>
           ))
         )}
@@ -112,10 +112,20 @@ const handleConfirmarPedido = async () => {
           <p className="valor-subtotal">${Total}</p>
         </div>
 
-        <button onClick={handleConfirmarPedido} className="boton-confirmar"  disabled={carrito.length === 0}>
+        <button onClick={handleConfirmarPedido} className="boton-confirmar" disabled={carrito.length === 0}>
           Realizar pedido
         </button>
-        <CheckoutMP montoCarrito={Total} />
+        
+        <CheckoutMP
+          pedido={{
+            totalPedido: Total,
+            detallePedidos: carrito.map(item => ({
+              cantidad: item.cantidad,
+              instrumentoId: item.instrumento.id,
+            })),
+          }}
+        />
+        
         <button onClick={handleCancelarPedido} className="boton-cancelar" disabled={carrito.length === 0}>
           Cancelar pedido
         </button>
