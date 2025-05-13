@@ -61,9 +61,15 @@ const Carrito: React.FC<Props> = ({ onClose }) => {
 
       if (!response.ok) throw new Error("Error al guardar el pedido");
 
-      alert(`El pedido se guardó correctamente`);
-      vaciarCarrito();
-      onClose();
+      const preferenceResponse = await response.json();  // Aquí obtienes la respuesta con la preferencia de Mercado Pago
+      if (preferenceResponse.id) {
+        // Ahora le pasas el id de la preferencia al componente CheckoutMP
+        alert(`El pedido se guardó correctamente. ID de preferencia: ${preferenceResponse.id}`);
+        vaciarCarrito();
+        onClose();
+      } else {
+        alert('Error al crear la preferencia de pago');
+      }
     } catch (error) {
       alert('Error al realizar el pedido');
       console.error(error);
@@ -99,8 +105,6 @@ const Carrito: React.FC<Props> = ({ onClose }) => {
               <div>
                 <button onClick={() => eliminarDelCarrito(Number(item.instrumento.id))} className="boton-eliminar" > Eliminar </button>
               </div>
-
-
             </div>
           ))
         )}
@@ -115,7 +119,7 @@ const Carrito: React.FC<Props> = ({ onClose }) => {
         <button onClick={handleConfirmarPedido} className="boton-confirmar" disabled={carrito.length === 0}>
           Realizar pedido
         </button>
-        
+
         <CheckoutMP
           pedido={{
             totalPedido: Total,

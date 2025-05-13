@@ -1,4 +1,4 @@
-import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
+import { initMercadoPago } from '@mercadopago/sdk-react';
 import { useState } from 'react';
 import { createPreferenceMP } from '../servicios/FuncionesApi';
 import PreferenceMP from '../Entidades/PreferenceMP';
@@ -14,10 +14,13 @@ function CheckoutMP({ pedido }: Props) {
     const getPreferenceMP = async () => {
         if (pedido.totalPedido > 0) {
             try {
-                console.log('Pedido enviado a Mercado Pago:', pedido); // Línea para imprimir el pedido
+                console.log('Pedido enviado a Mercado Pago:', pedido);
                 const response: PreferenceMP = await createPreferenceMP(pedido);
                 console.log('Preference id: ' + response.id);
-                if (response) setIdPreference(response.id);
+                if (response) {
+                    setIdPreference(response.id);
+                    window.location.href = `https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=${response.id}`;
+                }
             } catch (error) {
                 console.error('Error al crear la preferencia de Mercado Pago:', error);
                 alert('Hubo un error al procesar el pago con Mercado Pago.');
@@ -27,22 +30,14 @@ function CheckoutMP({ pedido }: Props) {
         }
     };
 
-    // Es la Public Key, se utiliza generalmente en el frontend.
     initMercadoPago('APP_USR-e9cdbf94-9ed1-431f-b12a-e1bc599a201b', { locale: 'es-AR' });
 
-    // redirectMode es optativo y puede ser self, blank o modal.
     return (
         <>
             <div>
                 <button onClick={getPreferenceMP} className="btMercadoPago">
                     COMPRAR con <br /> Mercado Pago
                 </button>
-                <div className={idPreference ? 'divVisible' : 'divInvisible'}>
-                    <Wallet
-                        initialization={{ preferenceId: idPreference, redirectMode: 'blank' }}
-                        customization={{ texts: { valueProp: 'smart_option' } }}
-                    />
-                </div>
             </div>
         </>
     );
