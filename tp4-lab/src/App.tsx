@@ -7,7 +7,8 @@ import Home from './pages/Home';
 import TablaInstrumentos from './pages/TablaInstrumentos';
 import ListadoPedidos from './pages/ListadoPedidos';
 import DetallePedido from './pages/DetallePedido';
-
+import PagoExitoso from './pages/Compraexitosa';
+import PagoFallido from './pages/CompraFalla';
 const App: React.FC = () => {
   return (
     <CarritoProvider>
@@ -20,6 +21,8 @@ const App: React.FC = () => {
           <Route path="/detalle/:id" element={<DetalleInstrumento />} />
           <Route path="/instrumentos" element={<ListadoInstrumentos />} />
           <Route path="/tabla" element={<TablaInstrumentos />} />
+          <Route path="/compraexitosa" element={<PagoExitoso />} />
+          <Route path="/comprafallida" element={<PagoFallido />} />
         </Routes>
       </Router>
     </CarritoProvider>

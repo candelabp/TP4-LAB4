@@ -15,4 +15,4 @@ export async function createPreferenceMP(pedido?: Pedido) {
   const preferenceMP = await response.json() as PreferenceMP;
   console.log("PreferenceMP recibido:", preferenceMP);
   return preferenceMP;
-}
+}  

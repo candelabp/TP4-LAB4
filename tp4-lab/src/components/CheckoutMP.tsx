@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { createPreferenceMP } from '../servicios/FuncionesApi';
 import PreferenceMP from '../Entidades/PreferenceMP';
 import Pedido from '../Entidades/Pedido';
-
+import '../styles/CompraExitosa.css';
 type Props = {
     pedido: Pedido;
 };
