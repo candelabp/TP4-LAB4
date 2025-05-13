@@ -1,6 +1,7 @@
 export default class PreferenceMP {
 
   id: string = '';
-  statusCode:number = 0;
+  preference: string = '';
+  initPoint: string = '';
 
 }
