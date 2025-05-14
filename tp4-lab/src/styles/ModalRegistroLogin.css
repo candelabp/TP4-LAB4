@@ -1,0 +1,114 @@
+.btnCerrar {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+.btnCerrar:hover {
+    color: #111827;
+}
+
+.divRegistro {
+    display: flex;
+}
+
+.formRegistroLogin{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+}
+
+.formRegistroLogin label{
+    display: flex;
+    align-items: left;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.formRegistroLogin input{
+    padding: 8px;
+    border-radius: 1rem;
+    border: 1px solid #d1d5db;
+}
+
+.checkboxRol{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 1rem;
+}
+
+.checkboxRol label{
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.checkboxRol input{
+    margin-right: 0.5rem;
+}
+
+.btnModal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+
+}
+
+.btnRegistroLogin {
+    background-color: #1c2842;
+    color: white;
+    border-radius: 0.5rem;
+    border: none;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 700;
+    width: 60%;
+    height: 2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btnRegistroLogin:hover {
+    background-color: #111827;
+}
+
+.btnCancelar {
+    background-color: #ef4444;
+    color: white;
+    border-radius: 0.5rem;
+    border: none;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 700;
+    width: 60%;
+    height: 2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}   
+
+.btnCancelar:hover {
+    background-color: #dc2626;
+}
+
+.btnRedirigir{
+    border: none;
+    background: none;
+    color: #1f2937;
+    font-size: 1rem;
+    text-decoration: underline;
+}
+
+.btnRedirigir:hover{
+    color: #364a72;
+}

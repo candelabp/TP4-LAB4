@@ -1,11 +1,16 @@
 import '../navbar.css';
 import { useNavigate } from 'react-router-dom';
-import carritoIcono from '../assets/icons/image.png';
+import carritoIcono from '../assets/icons/carrito.png';
 import { useState } from 'react';
 import Carrito from './Carrito';
+import loginIcono from '../assets/icons/login.png';
+import ModalRegistro from './ModalRegistro';
+import ModalLogin from './ModalLogin';
 
 export const Navbar = () => {
   const [carritoVisible, setCarritoVisible] = useState(false);
+  const [modalRegistroVisible, setModalRegistroVisible] = useState(false);
+  const [modalLoginVisible, setModalLoginVisible] = useState(false);
   const navigate = useNavigate();
 
   return (
@@ -27,7 +32,12 @@ export const Navbar = () => {
             </li>
             <li>
               <button className="navbar-link-btn" onClick={() => setCarritoVisible(true)}>
-                <img className="carritoIcono" src={carritoIcono} alt="Carrito" />
+                <img className="iconosNav" src={carritoIcono} alt="Carrito" />
+              </button>
+            </li>
+            <li>
+              <button className="navbar-link-btn" data-bs-toggle="modal" data-bs-target="#modalRegistro" onClick={() => setModalRegistroVisible(true)}>
+                <img className='iconosNav' src={loginIcono} alt="login" />
               </button>
             </li>
           </ul>
@@ -37,6 +47,32 @@ export const Navbar = () => {
         <div className="modal-overlay">
           <div className="modal-content">
             <Carrito onClose={() => setCarritoVisible(false)} />
+          </div>
+        </div>
+      )}
+      {modalRegistroVisible && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <ModalRegistro
+              onClose={() => setModalRegistroVisible(false)}
+              onOpenLogin={() => {
+                setModalRegistroVisible(false);
+                setModalLoginVisible(true);
+              }}
+            />
+          </div>
+        </div>
+      )}
+      {modalLoginVisible && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <ModalLogin
+              onClose={() => setModalLoginVisible(false)}
+              onOpenRegistro={() => {
+                setModalLoginVisible(false);
+                setModalRegistroVisible(true);
+              }}
+            />
           </div>
         </div>
       )}

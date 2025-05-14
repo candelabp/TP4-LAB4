@@ -64,7 +64,7 @@
     text-decoration: underline;
   }
 
-  .carritoIcono{
+  .iconosNav{
     width: 20px;
     height: 20px;
   }
@@ -81,6 +81,7 @@
     align-items: center;
     z-index: 1000;
   }
+
   
   .modal-content {
     background-color: white;
@@ -91,6 +92,7 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     position: relative;
   }
+
 
   .pedido-item {
     border: 1px solid #ccc;

@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/carrito.css';
 import { useCarrito } from '../context/CarritoContext';
 import  Pedido  from '../Entidades/Pedido';
-import  PedidoDetalle  from '../Entidades/PedidoDetalle';
+import PedidoDetalle from '../Entidades/PedidoDetalle';
 
 type Props = {
   onClose: () => void;
