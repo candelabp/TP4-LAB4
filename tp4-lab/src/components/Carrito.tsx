@@ -4,6 +4,9 @@ import { useCarrito } from '../context/CarritoContext';
 import Pedido from '../Entidades/Pedido';
 import PedidoDetalle from '../Entidades/PedidoDetalle';
 import CheckoutMP from './CheckoutMP';
+import mas from '../assets/icons/mas.png';
+import menos from '../assets/icons/menos.png';
+
 type Props = {
   onClose: () => void;
 };
@@ -99,9 +102,9 @@ const Carrito: React.FC<Props> = ({ onClose }) => {
               </div>
               <div className='divCantEliminar'>
                 <div className="controles-item">
-                  <button onClick={() => handleDecrementar(item.instrumento.id)}>-</button>
+                  <button onClick={() => handleDecrementar(item.instrumento.id)}><img src={menos} alt='iconoMenos'/></button>
                   <span className="cantidad-item">{item.cantidad}</span>
-                  <button onClick={() => handleIncrementar(item.instrumento.id)}>+</button>
+                  <button onClick={() => handleIncrementar(item.instrumento.id)}><img src={mas} alt='iconoMas'/></button>
                 </div>
                 <div>
                   <button onClick={() => eliminarDelCarrito(Number(item.instrumento.id))} className="boton-eliminar" > Eliminar </button>
