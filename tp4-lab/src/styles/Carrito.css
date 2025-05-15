@@ -93,11 +93,17 @@
     border-radius: 9999px;
 }
 
+.divCantEliminar{
+    display: flex;
+    flex-direction: column;
+}
+
 .boton-eliminar {
     background-color: #ef4444;
     color: white;
     padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
+    border: none;
+    border-radius: 20px;
     margin-top: 0.25rem;
 }
 
@@ -132,7 +138,22 @@
     background-color: #1f2937;
     color: white;
     padding: 0.5rem 1rem;
-    border-radius: 9999px;
+    border-radius: 20px;
+    width: 100%;
+}
+
+.boton-confirmar:disabled {
+    background-color: #d1d5db;
+    color: #9ca3af;
+    cursor: not-allowed;
+    border: none;
+}
+
+.boton-cancelar {
+    background-color: #f3f4f6;
+    border: 1px solid #d1d5db;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
     width: 100%;
 }
 
@@ -140,21 +161,7 @@
     background-color: #d1d5db;
     color: #9ca3af;
     cursor: not-allowed;
-    border: none
-}
-.boton-confirmar:disabled {
-    background-color: #d1d5db;
-    color: #9ca3af;
-    cursor: not-allowed;
-    border: none
-}
-
-.boton-cancelar {
-    background-color: #f3f4f6;
-    border: 1px solid #d1d5db;
-    padding: 0.5rem 1rem;
-    border-radius: 9999px;
-    width: 100%;
+    border: none;
 }
 
 .boton-confirmar:hover,

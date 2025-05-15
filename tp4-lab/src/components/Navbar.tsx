@@ -97,11 +97,13 @@ export const Navbar = () => {
                   setModalRegistroVisible(true);
                 }
               }}>
-                <img className={`iconosNav ${usuarioLogueado ? 'iconoLogueado' : ''}`} src={loginIcono} alt="login" >
+                <div>
+                  <img className={`iconosNav ${usuarioLogueado ? 'iconoLogueado' : ''}`} src={loginIcono} alt="login" />
                   {usuarioLogueado && (
-                    <span className='rolUsuario'> {usuarioLogueado.rol}</span>
+                    <span className='rolUsuario'>{usuarioLogueado.rol}</span>
                   )}
-                </img>
+                </div>
+
               </button>
             </li>
           </ul>

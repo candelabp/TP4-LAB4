@@ -97,14 +97,17 @@ const Carrito: React.FC<Props> = ({ onClose }) => {
                 <p className="precio-item">Precio: ${item.instrumento.precio}</p>
                 <p className="subtotal-item">Subtotal: ${item.instrumento.precio * item.cantidad}</p>
               </div>
-              <div className="controles-item">
-                <button onClick={() => handleDecrementar(item.instrumento.id)}>-</button>
-                <span className="cantidad-item">{item.cantidad}</span>
-                <button onClick={() => handleIncrementar(item.instrumento.id)}>+</button>
+              <div className='divCantEliminar'>
+                <div className="controles-item">
+                  <button onClick={() => handleDecrementar(item.instrumento.id)}>-</button>
+                  <span className="cantidad-item">{item.cantidad}</span>
+                  <button onClick={() => handleIncrementar(item.instrumento.id)}>+</button>
+                </div>
+                <div>
+                  <button onClick={() => eliminarDelCarrito(Number(item.instrumento.id))} className="boton-eliminar" > Eliminar </button>
+                </div>
               </div>
-              <div>
-                <button onClick={() => eliminarDelCarrito(Number(item.instrumento.id))} className="boton-eliminar" > Eliminar </button>
-              </div>
+
             </div>
           ))
         )}
@@ -129,7 +132,7 @@ const Carrito: React.FC<Props> = ({ onClose }) => {
             })),
           }}
         />
-        
+
         <button onClick={handleCancelarPedido} className="boton-cancelar" disabled={carrito.length === 0}>
           Cancelar pedido
         </button>
