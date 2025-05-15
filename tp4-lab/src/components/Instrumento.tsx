@@ -69,7 +69,7 @@ const Instrumento: React.FC<Props> = ({ instrumento }) => {
       {modalVerDetalle && (
         <div className='modalVerDetalle'>
           <div className='contenidoModal'>
-            <DetalleInstrumento />
+            <DetalleInstrumento id={instrumento.id}/>
           </div>
         </div>
       )}

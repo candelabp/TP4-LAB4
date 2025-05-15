@@ -10,8 +10,7 @@ const getImage = (imageName: string) => {
   return new URL(`../assets/img/${imageName}`, import.meta.url).href;
 };
 
-const DetalleInstrumento = () => {
-  const { id } = useParams();
+const DetalleInstrumento = ({ id }: { id: string }) => {
   const [instrumento, setInstrumento] = useState<InstrumentoType | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
