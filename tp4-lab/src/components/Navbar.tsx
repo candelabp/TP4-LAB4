@@ -14,7 +14,7 @@ export const Navbar = () => {
   const [modalRegistroVisible, setModalRegistroVisible] = useState(false);
   const [modalLoginVisible, setModalLoginVisible] = useState(false);
   const [modalUsuarioVisible, setModalUsuarioVisible] = useState(false);
-  const [usuarioLogueado, setUsuarioLogueado] = useState<Usuario | null>(null); //
+  const [usuarioLogueado, setUsuarioLogueado] = useState<Usuario | null>(null); 
 
   const navigate = useNavigate();
 

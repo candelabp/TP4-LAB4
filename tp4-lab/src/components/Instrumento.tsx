@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { InstrumentoType } from './types';
 import '../instrumento.css';
 import { Link } from 'react-router-dom';
 import { useCarrito } from '../context/CarritoContext';
+import Usuario from '../Entidades/Usuario';
 
 interface Props {
   instrumento: InstrumentoType;
@@ -14,6 +15,16 @@ const getImage = (imageName: string) => {
 
 const Instrumento: React.FC<Props> = ({ instrumento }) => {
   const { agregarAlCarrito } = useCarrito();
+  const [usuarioLogueado, setUsuarioLogueado] = useState<Usuario | null>(null); 
+
+  const handleStorage = () => {
+    const usuarioStr = localStorage.getItem('usuario');
+    if (usuarioStr) {
+      setUsuarioLogueado(JSON.parse(usuarioStr));
+    } else {
+      setUsuarioLogueado(null);
+    }
+  };
 
   return (
     <div className="instrumento-container">
@@ -45,6 +56,7 @@ const Instrumento: React.FC<Props> = ({ instrumento }) => {
           <button
             className="btn-ver-detalle"
             onClick={() => agregarAlCarrito(instrumento)}
+            disabled={handleStorage() === null}
           >
             Agregar al carrito
           </button>
