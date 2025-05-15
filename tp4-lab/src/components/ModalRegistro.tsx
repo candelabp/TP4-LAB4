@@ -48,9 +48,10 @@ const ModalRegistro: React.FC<Props> = ({ onClose, onOpenLogin }) => {
             if (response.ok) {
                 const data = await response.json();
                 console.log("Usuario registrado:", data);
-                // localStorage.setItem("usuario", JSON.stringify(data));
+                localStorage.setItem("usuario", JSON.stringify(data));
                 alert("Registro exitoso");
                 onClose();
+                window.location.reload();
             } else {
                 alert("Error al registrarse");
             }
@@ -64,6 +65,7 @@ const ModalRegistro: React.FC<Props> = ({ onClose, onOpenLogin }) => {
         <div>
             <button onClick={onClose} className="btnCerrar">✕</button>
             <h2>Registrate</h2>
+            
             <form onSubmit={handleRegistrarse}>
                 <div className='formRegistroLogin'>
                     <label htmlFor="nombreUsuario">Nombre Usuario</label>

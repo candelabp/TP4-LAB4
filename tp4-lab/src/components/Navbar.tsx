@@ -22,7 +22,20 @@ export const Navbar = () => {
     const usuarioStr = localStorage.getItem("usuario");
     if (usuarioStr) {
       setUsuarioLogueado(JSON.parse(usuarioStr));
+    } else {
+      setUsuarioLogueado(null);
     }
+
+    const handleStorage = () => {
+      const usuarioStr = localStorage.getItem("usuario");
+      if (usuarioStr) {
+        setUsuarioLogueado(JSON.parse(usuarioStr));
+      } else {
+        setUsuarioLogueado(null);
+      }
+    };
+    window.addEventListener("storage", handleStorage);
+    return () => window.removeEventListener("storage", handleStorage);
   }, []);
 
   return (
@@ -43,13 +56,18 @@ export const Navbar = () => {
               </button>
             </li>
             <li>
-              <button className="navbar-link-btn" onClick={() => setCarritoVisible(true)}>
+              <button
+                className="navbar-link-btn"
+                onClick={() => {
+                  if (usuarioLogueado) {
+                    setCarritoVisible(true);
+                  } else {
+                    alert("Debes iniciar sesión para ver el carrito.");
+                    setModalLoginVisible(true); 
+                  }
+                }}
+              >
                 <img className="iconosNav" src={carritoIcono} alt="Carrito" />
-              </button>
-            </li>
-            <li>
-              <button className="navbar-link-btn" data-bs-toggle="modal" data-bs-target="#modalRegistro" onClick={() => setModalRegistroVisible(true)}>
-                <img className='iconosNav' src={loginIcono} alt="login" />
               </button>
             </li>
             <li>
@@ -60,7 +78,7 @@ export const Navbar = () => {
                   setModalRegistroVisible(true);
                 }
               }}>
-                <img className='iconosNav' src={loginIcono} alt="login" />
+                <img className="iconosNav" src={loginIcono} alt="login" />
               </button>
             </li>
           </ul>

@@ -12,7 +12,9 @@ const ModalLogin: React.FC<Props> = ({ onClose, onOpenRegistro }) => {
     const [nombreUsuario, setNombreUsuario] = useState('');
     const [clave, setClave] = useState('');
 
-    const handleLogin = async () => {
+    const handleLogin = async (e: React.FormEvent) => {
+        e.preventDefault();
+
         if (!nombreUsuario || !clave) {
             alert("Por favor completa todos los campos");
             return;
@@ -39,7 +41,7 @@ const ModalLogin: React.FC<Props> = ({ onClose, onOpenRegistro }) => {
                 localStorage.setItem("usuario", JSON.stringify(data));
                 alert("Inicio de sesión exitoso");
                 onClose();
-                // window.location.reload();
+                window.location.reload();
             } else {
                 alert("Error al iniciar sesión");
             }
@@ -50,26 +52,28 @@ const ModalLogin: React.FC<Props> = ({ onClose, onOpenRegistro }) => {
     }
 
     return (
-        <form onSubmit={e => { e.preventDefault(); handleLogin(); }}>
+        <div>
             <button onClick={onClose} className="btnCerrar">✕</button>
             <h2>Iniciá sesión</h2>
+            
+            <form onSubmit={handleLogin}>
+                <div className="formRegistroLogin">
+                    <label htmlFor="nombreUsuario">Usuario</label>
+                    <input type="text" id="nombreUsuario" placeholder="Usuario" value={nombreUsuario} onChange={e => setNombreUsuario(e.target.value)} />
 
-            <div className="formRegistroLogin">
-                <label htmlFor="nombreUsuario">Usuario</label>
-                <input type="text" id="nombreUsuario" placeholder="Usuario" value={nombreUsuario} onChange={e => setNombreUsuario(e.target.value)}/>
+                    <label htmlFor="contrasenia">Contraseña</label>
+                    <input type="password" id="contrasenia" placeholder="Contraseña" value={clave} onChange={e => setClave(e.target.value)} />
+                </div>
 
-                <label htmlFor="contrasenia">Contraseña</label>
-                <input type="password" id="contrasenia" placeholder="Contraseña" value={clave} onChange={e => setClave(e.target.value)}/>
-            </div>
-
-            <div className="btnModal">
-                <button className='btnRegistroLogin' type='submit'> Iniciar sesión </button>
-                <button className='btnCancelar' onClick={onClose}> Cancelar </button>
-                  <button className='btnRedirigir' 
-                  onClick={onOpenRegistro}
-                >¿No tenés cuenta? Registrate</button>
-            </div>
-        </form>
+                <div className="btnModal">
+                    <button className='btnRegistroLogin' type='submit'> Iniciar sesión </button>
+                    <button className='btnCancelar' onClick={onClose}> Cancelar </button>
+                    <button className='btnRedirigir'
+                        onClick={onOpenRegistro}
+                    >¿No tenés cuenta? Registrate</button>
+                </div>
+            </form>
+        </div>
     )
 }
 
