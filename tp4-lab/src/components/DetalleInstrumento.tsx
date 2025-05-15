@@ -1,6 +1,6 @@
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { InstrumentoType } from './types';
+import { InstrumentoType } from '../Entidades/types';
 import { fetchInstrumentos } from '../utils/fetchInstrumentos';
 import '../instrumento.css';
 

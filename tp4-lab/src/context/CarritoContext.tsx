@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import { InstrumentoType } from '../components/types';
+import { InstrumentoType } from '../Entidades/types';
 
 interface CarritoItem {
   instrumento: InstrumentoType;

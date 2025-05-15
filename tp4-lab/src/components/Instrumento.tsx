@@ -1,8 +1,9 @@
 import React from 'react';
-import { InstrumentoType } from './types';
-import '../instrumento.css';
+import { InstrumentoType } from '../Entidades/types';
+import '../styles/Instrumento.css';
 import { Link } from 'react-router-dom';
 import { useCarrito } from '../context/CarritoContext';
+import { Rol } from '../Entidades/Rol';
 
 interface Props {
   instrumento: InstrumentoType;
@@ -15,8 +16,9 @@ const getImage = (imageName: string) => {
 const Instrumento: React.FC<Props> = ({ instrumento }) => {
   const { agregarAlCarrito } = useCarrito();
 
-  // Verifica si hay usuario logueado
-  const usuarioLogueado = localStorage.getItem('usuario');
+  const usuarioStr = localStorage.getItem('usuario');
+  const usuarioLogueado = usuarioStr ? JSON.parse(usuarioStr) : null;
+  const esAdmin = usuarioLogueado && usuarioLogueado.rol === Rol.ADMIN;
 
   return (
     <div className="instrumento-container">
@@ -47,8 +49,17 @@ const Instrumento: React.FC<Props> = ({ instrumento }) => {
           </Link>
           <button
             className="btn-ver-detalle"
-            onClick={() => agregarAlCarrito(instrumento)}
-            disabled={!usuarioLogueado}
+            onClick={() => {
+              if (!usuarioLogueado) {
+                alert("Debes iniciar sesión para agregar productos al carrito.");
+              } else if (esAdmin) {
+                alert("Debes ser cliente para agregar productos al carrito.");
+              } else {
+                agregarAlCarrito(instrumento);
+                alert("¡Producto agregado al carrito!");
+              }
+            }}
+            disabled={!usuarioLogueado || esAdmin}
           >
             Agregar al carrito
           </button>

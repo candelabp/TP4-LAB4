@@ -4,12 +4,14 @@ import { createPreferenceMP } from '../servicios/FuncionesApi';
 import PreferenceMP from '../Entidades/PreferenceMP';
 import Pedido from '../Entidades/Pedido';
 import '../styles/CompraExitosa.css';
+import { useCarrito } from '../context/CarritoContext';
 type Props = {
     pedido: Pedido;
 };
 
 function CheckoutMP({ pedido }: Props) {
     const [idPreference, setIdPreference] = useState<string>('');
+    const {carrito} = useCarrito();
 
     const getPreferenceMP = async () => {
         if (pedido.totalPedido > 0) {
@@ -35,7 +37,7 @@ function CheckoutMP({ pedido }: Props) {
     return (
         <>
             <div>
-                <button onClick={getPreferenceMP} className="btMercadoPago">
+                <button onClick={getPreferenceMP} className="btMercadoPago" disabled={carrito.length === 0}>
                     Mercado Pago
                 </button>
             </div>

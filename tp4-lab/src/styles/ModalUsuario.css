@@ -1,0 +1,42 @@
+.btn_Cerrar {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+.btn_Cerrar:hover {
+    color: #111827;
+}
+
+.modalUsuario {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+}
+
+.tituloSesionActiva {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.modalUsuario p {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    color: #374151;
+}
+
+.btnCerrarSesion{
+    padding: 8px;
+    border-radius: 1rem;
+    border: 1px solid #d1d5db;
+    background-color: #f3f4f6;
+    color: #111827;
+    font-weight: 700;
+}

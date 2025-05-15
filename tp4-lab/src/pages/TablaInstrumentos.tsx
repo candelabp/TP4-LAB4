@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { InstrumentoType, CategoriaType } from '../components/types';
+import { InstrumentoType, CategoriaType } from '../Entidades/types';
 import { fetchCategorias } from '../utils/fetchCategorias';
 import { fetchInstrumentos } from '../utils/fetchInstrumentos';
 import "../styles/TablaInstrumentos.css";

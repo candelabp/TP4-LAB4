@@ -1,4 +1,4 @@
-import '../navbar.css';
+import '../styles/Navbar.css';
 import { useNavigate } from 'react-router-dom';
 import carritoIcono from '../assets/icons/carrito.png';
 import { useState, useEffect } from 'react';
@@ -8,13 +8,14 @@ import ModalRegistro from './ModalRegistro';
 import ModalLogin from './ModalLogin';
 import Usuario from '../Entidades/Usuario';
 import ModalUsuario from './ModalUsuario';
+import { Rol } from '../Entidades/Rol';
 
 export const Navbar = () => {
   const [carritoVisible, setCarritoVisible] = useState(false);
   const [modalRegistroVisible, setModalRegistroVisible] = useState(false);
   const [modalLoginVisible, setModalLoginVisible] = useState(false);
   const [modalUsuarioVisible, setModalUsuarioVisible] = useState(false);
-  const [usuarioLogueado, setUsuarioLogueado] = useState<Usuario | null>(null); 
+  const [usuarioLogueado, setUsuarioLogueado] = useState<Usuario | null>(null);
 
   const navigate = useNavigate();
 
@@ -47,8 +48,24 @@ export const Navbar = () => {
           </span>
           <ul className="navbar-menu">
             <li><button className="navbar-link-btn" onClick={() => navigate('/home')}>Inicio</button></li>
-            <li><button className="navbar-link-btn" onClick={() => navigate('/home#productos')}>Productos</button></li>
-            <li><button className="navbar-link-btn" onClick={() => navigate('/home#donde-estamos')}>Dónde estamos</button></li>
+            <li><button className="navbar-link-btn" onClick={() => {
+              navigate('/home');
+              setTimeout(() => {
+                const section = document.getElementById('productos');
+                if (section) {
+                  section.scrollIntoView({ behavior: 'smooth' });
+                }
+              }, 100);
+            }}>Productos</button></li>
+            <li><button className="navbar-link-btn" onClick={() => {
+              navigate('/home');
+              setTimeout(() => {
+                const section = document.getElementById('donde-estamos');
+                if (section) {
+                  section.scrollIntoView({ behavior: 'smooth' });
+                }
+              }, 100);
+            }}>Dónde estamos</button></li>
             <li><button className="navbar-link-btn" onClick={() => navigate('/tabla')}>Admin</button></li>
             <li>
               <button className="navbar-link-btn" onClick={() => navigate('/pedidos')}>
@@ -59,15 +76,20 @@ export const Navbar = () => {
               <button
                 className="navbar-link-btn"
                 onClick={() => {
-                  if (usuarioLogueado) {
-                    setCarritoVisible(true);
-                  } else {
+                  if (!usuarioLogueado) {
                     alert("Debes iniciar sesión para ver el carrito.");
-                    setModalLoginVisible(true); 
+                    setModalLoginVisible(true);
+                  } else if (usuarioLogueado.rol === Rol.ADMIN) {
+                    alert("Solo los clientes pueden acceder al carrito.");
+                  } else {
+                    setCarritoVisible(true);
                   }
                 }}
               >
-                <img className="iconosNav" src={carritoIcono} alt="Carrito" />
+                <img className={`iconosNav ${usuarioLogueado ? 'iconoLogueado' : ''}`} src={carritoIcono} alt="Carrito" />
+                {usuarioLogueado && (
+                  <span className='rolUsuario'> {usuarioLogueado.rol}</span>
+                )}
               </button>
             </li>
             <li>
@@ -83,50 +105,57 @@ export const Navbar = () => {
             </li>
           </ul>
         </div>
-      </nav>
+      </nav >
       {carritoVisible && (
         <div className="modal-overlay">
           <div className="modal-content">
             <Carrito onClose={() => setCarritoVisible(false)} />
           </div>
         </div>
-      )}
-      {modalRegistroVisible && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <ModalRegistro
-              onClose={() => setModalRegistroVisible(false)}
-              onOpenLogin={() => {
-                setModalRegistroVisible(false);
-                setModalLoginVisible(true);
-              }}
-            />
+      )
+      }
+      {
+        modalRegistroVisible && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <ModalRegistro
+                onClose={() => setModalRegistroVisible(false)}
+                onOpenLogin={() => {
+                  setModalRegistroVisible(false);
+                  setModalLoginVisible(true);
+                }}
+              />
+            </div>
           </div>
-        </div>
-      )}
-      {modalLoginVisible && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <ModalLogin
-              onClose={() => setModalLoginVisible(false)}
-              onOpenRegistro={() => {
-                setModalLoginVisible(false);
-                setModalRegistroVisible(true);
-              }}
-            />
+        )
+      }
+      {
+        modalLoginVisible && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <ModalLogin
+                onClose={() => setModalLoginVisible(false)}
+                onOpenRegistro={() => {
+                  setModalLoginVisible(false);
+                  setModalRegistroVisible(true);
+                }}
+              />
+            </div>
           </div>
-        </div>
-      )}
-      {modalUsuarioVisible && usuarioLogueado && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <ModalUsuario
-              usuario={usuarioLogueado}
-              onClose={() => setModalUsuarioVisible(false)}
-            />
+        )
+      }
+      {
+        modalUsuarioVisible && usuarioLogueado && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <ModalUsuario
+                usuario={usuarioLogueado}
+                onClose={() => setModalUsuarioVisible(false)}
+              />
+            </div>
           </div>
-        </div>
-      )}
+        )
+      }
     </>
   );
 };

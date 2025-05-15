@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { InstrumentoType, CategoriaType } from './types';
+import { InstrumentoType, CategoriaType } from '../Entidades/types';
 import '../styles/FormularioInstrumentos.css';
 
 interface Props {

@@ -1,4 +1,4 @@
-import { CategoriaType } from '../components/types';
+import { CategoriaType } from '../Entidades/types';
 
 export async function fetchCategorias(): Promise<CategoriaType[]> {
   const response = await fetch('http://localhost:8080/api/categorias');
