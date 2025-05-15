@@ -36,7 +36,7 @@ function CheckoutMP({ pedido }: Props) {
         <>
             <div>
                 <button onClick={getPreferenceMP} className="btMercadoPago">
-                    COMPRAR con <br /> Mercado Pago
+                    Mercado Pago
                 </button>
             </div>
         </>

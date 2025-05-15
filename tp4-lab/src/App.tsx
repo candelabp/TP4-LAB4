@@ -22,13 +22,14 @@ const App: React.FC = () => {
           <Route path="/instrumentos" element={<ListadoInstrumentos />} /> 
 
           {/* Rutas privadas */}
-          <Route path="/pedidos" element={<RutaPrivada><ListadoPedidos /></RutaPrivada>} />
-          <Route path="/pedidos/:id" element={<RutaPrivada><DetallePedido /></RutaPrivada>} />
+          
         
           {/*ruta privada y con Rol Administrador*/}
           <Route element={<RolUsuario rol={Rol.ADMIN}/>}>
             <Route path="/tabla" element={<TablaInstrumentos />} />
             <Route path="/detalle/:id" element={<DetalleInstrumento />} />
+            <Route path="/pedidos" element={<ListadoPedidos />} />
+            <Route path="/pedidos/:id" element={<DetallePedido />} />
           </Route> 
         </Routes>
       </Router>

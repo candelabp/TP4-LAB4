@@ -4,5 +4,5 @@ export default class Usuario {
     id: number = 0;
     nombreUsuario: string = "";
     clave: string = "";
-    rol: Rol = Rol.CLIENTE;
+    rol: Rol | null= null;
 }

@@ -1,17 +1,29 @@
 import '../navbar.css';
 import { useNavigate } from 'react-router-dom';
 import carritoIcono from '../assets/icons/carrito.png';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Carrito from './Carrito';
 import loginIcono from '../assets/icons/login.png';
 import ModalRegistro from './ModalRegistro';
 import ModalLogin from './ModalLogin';
+import Usuario from '../Entidades/Usuario';
+import ModalUsuario from './ModalUsuario';
 
 export const Navbar = () => {
   const [carritoVisible, setCarritoVisible] = useState(false);
   const [modalRegistroVisible, setModalRegistroVisible] = useState(false);
   const [modalLoginVisible, setModalLoginVisible] = useState(false);
+  const [modalUsuarioVisible, setModalUsuarioVisible] = useState(false);
+  const [usuarioLogueado, setUsuarioLogueado] = useState<Usuario | null>(null); //
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const usuarioStr = localStorage.getItem("usuario");
+    if (usuarioStr) {
+      setUsuarioLogueado(JSON.parse(usuarioStr));
+    }
+  }, []);
 
   return (
     <>
@@ -37,6 +49,17 @@ export const Navbar = () => {
             </li>
             <li>
               <button className="navbar-link-btn" data-bs-toggle="modal" data-bs-target="#modalRegistro" onClick={() => setModalRegistroVisible(true)}>
+                <img className='iconosNav' src={loginIcono} alt="login" />
+              </button>
+            </li>
+            <li>
+              <button className="navbar-link-btn" onClick={() => {
+                if (usuarioLogueado) {
+                  setModalUsuarioVisible(true);
+                } else {
+                  setModalRegistroVisible(true);
+                }
+              }}>
                 <img className='iconosNav' src={loginIcono} alt="login" />
               </button>
             </li>
@@ -72,6 +95,16 @@ export const Navbar = () => {
                 setModalLoginVisible(false);
                 setModalRegistroVisible(true);
               }}
+            />
+          </div>
+        </div>
+      )}
+      {modalUsuarioVisible && usuarioLogueado && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <ModalUsuario
+              usuario={usuarioLogueado}
+              onClose={() => setModalUsuarioVisible(false)}
             />
           </div>
         </div>

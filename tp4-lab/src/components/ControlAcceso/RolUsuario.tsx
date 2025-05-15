@@ -14,7 +14,7 @@ function RolUsuario({ rol }: Props) {
     if (usuarioLogueado && usuarioLogueado.rol === Rol.ADMIN) {
         return <Outlet />
     } else if (usuarioLogueado && usuarioLogueado.rol === Rol.CLIENTE) {
-        return <Navigate to="/home" />
+        return <Navigate to="/" />
     }else {
         return <Navigate to="/home" />
     }

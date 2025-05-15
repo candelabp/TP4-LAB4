@@ -22,7 +22,7 @@ const ModalLogin: React.FC<Props> = ({ onClose, onOpenRegistro }) => {
             id: 0,
             nombreUsuario: nombreUsuario,
             clave: clave,
-            rol: Rol.NULL
+            rol: null
         };
 
         try {
