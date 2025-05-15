@@ -73,9 +73,8 @@
 }
 
 .controles-item button {
-    background-color: #1f2937;
     border: 1px solid #1f2937;
-    color: white;
+    color: #1f2937;
     padding: 0.25rem 0.5rem;
     border-radius: 9999px;
     cursor: pointer;
@@ -99,7 +98,7 @@
 }
 
 .boton-eliminar {
-    background-color: #ef4444;
+    background-color: #d31313;
     color: white;
     padding: 0.25rem 0.75rem;
     border: none;
