@@ -1,5 +1,6 @@
 import React from 'react';
 import Usuario from '../Entidades/Usuario';
+import '../styles/modalUsuario.css';
 
 type Props = {
   usuario: Usuario;

@@ -2,7 +2,7 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { InstrumentoType } from '../Entidades/types';
 import { fetchInstrumentos } from '../utils/fetchInstrumentos';
-import '../instrumento.css';
+import '../styles/instrumento.css';
 
 const getImage = (imageName: string) => {
   return new URL(`../assets/img/${imageName}`, import.meta.url).href;

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { InstrumentoType } from '../Entidades/types';
 import Instrumento from '../components/Instrumento';
-import '../instrumento.css';
+import '../styles/instrumento.css';
 import { fetchInstrumentos } from '../utils/fetchInstrumentos';
 
 const ListadoInstrumentos = () => {
