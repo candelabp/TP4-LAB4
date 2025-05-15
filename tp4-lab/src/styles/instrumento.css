@@ -115,38 +115,55 @@
 } */
 
 .detalle-img {
-  width: 500px;
+  width: 100%;
   object-fit: contain;
 }
 
 .detalle-info {
-  flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 10px;
   color: #333;
 }
 
-.detalle-info .vendidos {
+.vendidos {
   font-size: 13px;
   color: #888;
 }
 
 .detalle-info h2 {
-  font-size: 22px;
+  font-size: 30px;
   margin: 0;
   font-weight: 500;
 }
 
 .detalle-info .precio {
-  font-size: 36px;
+  font-size: 24px;
   font-weight: 400;
   margin: 10px 0;
 }
 
-.detalle-info .marca-modelo {
-  font-size: 14px;
-  color: #555;
+.cont-info-instrumento {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cont-marca-modelo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  
+}
+
+.cont-costo-envio {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
 }
 
 .detalle-info .envio {
@@ -159,13 +176,12 @@
 }
 
 .detalle-info .descripcion {
-  margin-top: 20px;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.5;
 }
 
 .detalle-info .boton-agregar {
-  margin-top: 20px;
+  margin-top: 10px;
   background-color: #e0f0ff;
   color: #0077cc;
   border: 1px solid #cce7ff;

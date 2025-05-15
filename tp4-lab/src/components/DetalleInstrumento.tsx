@@ -39,9 +39,11 @@ const DetalleInstrumento: React.FC<Props> = ({ id, onClose }) => {
 
   return (
     <div>
-      <button onClick={onClose} className="botonX" type="button">✕</button>
-      <div className="detalle-info">
+      <div>
+        <button onClick={onClose} className="botonX" type="button">✕</button>
         <p className="vendidos">{instrumento.cantidadVendida} vendidos</p>
+      </div>
+      <div className="detalle-info">
         <h2>{instrumento.instrumento}</h2>
         <img
           className="instrumento-img"
@@ -52,14 +54,27 @@ const DetalleInstrumento: React.FC<Props> = ({ id, onClose }) => {
           }
           alt={instrumento.instrumento}
         />
-        <p className="precio">${instrumento.precio}</p>
-        <p className="marca-modelo">Marca: {instrumento.marca}<br />Modelo: {instrumento.modelo}</p>
-        <p><strong>Costo Envío:</strong></p>
-        {instrumento.costoEnvio === 'G' ? (
-          <p className="envio">📦 Envío gratis</p>
-        ) : (
-          <p>${instrumento.costoEnvio}</p>
-        )}
+        <p className="precio">Precio: ${instrumento.precio}</p>
+
+        <div className='cont-info-instrumento'>
+          <div className='cont-marca-modelo'>
+            <p className="marca-modelo"><strong>Marca:</strong> {instrumento.marca}</p>
+            <p className='marca-modelo'><strong>Modelo:</strong> {instrumento.modelo}</p>
+          </div>
+
+          <div className='cont-costo-envio'>
+            <p><strong>Costo Envío:</strong></p>{instrumento.costoEnvio === 'G' ? (
+              <p className="envio">📦 Envío gratis</p>
+            ) : (
+              <p>${instrumento.costoEnvio}</p>
+            )}
+          </div>
+
+          <div className="descripcion">
+          <p><strong>Descripción: </strong>{instrumento.descripcion}</p>
+        </div>
+
+        </div>
         {!fromTabla && (
           <button className="boton-agregar" onClick={() => {
             if (!usuarioLogueado) {
@@ -73,10 +88,6 @@ const DetalleInstrumento: React.FC<Props> = ({ id, onClose }) => {
           }}
           >Agregar al carrito</button>
         )}
-        <div className="descripcion">
-          <p><strong>Descripción:</strong></p>
-          <p>{instrumento.descripcion}</p>
-        </div>
         {/* {fromTabla ? (
           <button className="btn-agregar" onClick={() => navigate('/tabla')}>Volver a la tabla</button>
         ) : (
