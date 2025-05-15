@@ -68,7 +68,7 @@
 .btnRegistroLogin {
     background-color: #1c2842;
     color: white;
-    border-radius: 0.5rem;
+    border-radius: 1rem;
     border: none;
     font-size: 1rem;
     line-height: 1.5rem;
@@ -83,10 +83,14 @@
     background-color: #111827;
 }
 
+.btnRegistroLogin:disabled {
+    background-color: #a3a3a3;
+}
+
 .btnCancelar {
     background-color: #ef4444;
     color: white;
-    border-radius: 0.5rem;
+    border-radius: 1rem;
     border: none;
     font-size: 1rem;
     line-height: 1.5rem;
@@ -101,6 +105,10 @@
     background-color: #dc2626;
 }
 
+.btnCancelar:disabled {
+    background-color: #a3a3a3;
+}
+
 .btnRedirigir{
     border: none;
     background: none;
@@ -111,4 +119,8 @@
 
 .btnRedirigir:hover{
     color: #364a72;
+}
+
+.btnRedirigirdisabled {
+    background-color: #a3a3a3;
 }

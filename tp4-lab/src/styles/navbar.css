@@ -65,6 +65,20 @@
   text-decoration: underline;
 }
 
+.navbarScrollLink {
+  text-decoration: none;
+  cursor: pointer;
+  color: #000000;
+  background: none;
+  border: none;
+  font: inherit;
+}
+
+.navbarScrollLink:hover {
+  color: #000000;
+  text-decoration: underline;
+}
+
 .iconosNav {
   width: 20px;
   height: 20px;

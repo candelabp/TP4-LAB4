@@ -59,8 +59,7 @@ const Instrumento: React.FC<Props> = ({ instrumento }) => {
                 alert("¡Producto agregado al carrito!");
               }
             }}
-          >
-            Agregar al carrito
+          > Agregar al carrito
           </button>
         </div>
       </div>

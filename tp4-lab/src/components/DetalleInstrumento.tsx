@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { InstrumentoType } from '../Entidades/types';
 import { fetchInstrumentos } from '../utils/fetchInstrumentos';
 import '../styles/instrumento.css';
+import { useCarrito } from '../context/CarritoContext';
+import { Rol } from '../Entidades/Rol';
 
 const getImage = (imageName: string) => {
   return new URL(`../assets/img/${imageName}`, import.meta.url).href;
@@ -14,6 +16,11 @@ const DetalleInstrumento = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const fromTabla = location.state?.fromTabla;
+  const { agregarAlCarrito } = useCarrito();
+
+  const usuarioStr = localStorage.getItem('usuario');
+  const usuarioLogueado = usuarioStr ? JSON.parse(usuarioStr) : null;
+  const esAdmin = usuarioLogueado && usuarioLogueado.rol === Rol.ADMIN;
 
   useEffect(() => {
     fetchInstrumentos()
@@ -49,7 +56,17 @@ const DetalleInstrumento = () => {
           <p>${instrumento.costoEnvio}</p>
         )}
         {!fromTabla && (
-          <button className="boton-agregar">Agregar al carrito</button>
+          <button className="boton-agregar" onClick={() => {
+            if (!usuarioLogueado) {
+              alert("Debes iniciar sesión para agregar productos al carrito.");
+            } else if (esAdmin) {
+              alert("Debes ser cliente para agregar productos al carrito.");
+            } else {
+              agregarAlCarrito(instrumento);
+              alert("¡Producto agregado al carrito!");
+            }
+          }}
+          >Agregar al carrito</button>
         )}
         <div className="descripcion">
           <p><strong>Descripción:</strong></p>
