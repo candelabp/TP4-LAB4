@@ -10,7 +10,12 @@ const getImage = (imageName: string) => {
   return new URL(`../assets/img/${imageName}`, import.meta.url).href;
 };
 
-const DetalleInstrumento = ({ id }: { id: string }) => {
+type Props = {
+  id: number | string;
+  onClose: () => void;
+};
+
+const DetalleInstrumento: React.FC<Props> = ({ id, onClose }) => {
   const [instrumento, setInstrumento] = useState<InstrumentoType | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
@@ -34,18 +39,19 @@ const DetalleInstrumento = ({ id }: { id: string }) => {
 
   return (
     <div className="detalle-container">
-      <img
-        className="instrumento-img"
-        src={
-          instrumento.imagen.trim().toLowerCase().startsWith('http')
-            ? instrumento.imagen.trim()
-            : getImage(instrumento.imagen.trim())
-        }
-        alt={instrumento.instrumento}
-      />
+      <button onClick={onClose} className="" type="button">✕</button>
       <div className="detalle-info">
         <p className="vendidos">{instrumento.cantidadVendida} vendidos</p>
         <h2>{instrumento.instrumento}</h2>
+        <img
+          className="instrumento-img"
+          src={
+            instrumento.imagen.trim().toLowerCase().startsWith('http')
+              ? instrumento.imagen.trim()
+              : getImage(instrumento.imagen.trim())
+          }
+          alt={instrumento.instrumento}
+        />
         <p className="precio">${instrumento.precio}</p>
         <p className="marca-modelo">Marca: {instrumento.marca}<br />Modelo: {instrumento.modelo}</p>
         <p><strong>Costo Envío:</strong></p>
@@ -71,11 +77,11 @@ const DetalleInstrumento = ({ id }: { id: string }) => {
           <p><strong>Descripción:</strong></p>
           <p>{instrumento.descripcion}</p>
         </div>
-        {fromTabla ? (
+        {/* {fromTabla ? (
           <button className="btn-agregar" onClick={() => navigate('/tabla')}>Volver a la tabla</button>
         ) : (
           <button className="btn-agregar" onClick={() => navigate('/home')}>Volver al home</button>
-        )}
+        )} */}
       </div>
     </div>
   );

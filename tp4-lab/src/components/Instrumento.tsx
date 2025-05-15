@@ -69,7 +69,7 @@ const Instrumento: React.FC<Props> = ({ instrumento }) => {
       {modalVerDetalle && (
         <div className='modalVerDetalle'>
           <div className='contenidoModal'>
-            <DetalleInstrumento id={instrumento.id}/>
+            <DetalleInstrumento id={instrumento.id} onClose={() => setModalVerDetalle(false)}/>
           </div>
         </div>
       )}
