@@ -102,9 +102,9 @@ const Carrito: React.FC<Props> = ({ onClose }) => {
               </div>
               <div className='divCantEliminar'>
                 <div className="controles-item">
-                  <button onClick={() => handleDecrementar(item.instrumento.id)}><img src={menos} alt='iconoMenos'/></button>
+                  <button onClick={() => handleDecrementar(item.instrumento.id)}><img src={menos} alt='iconoMenos' className='iconos-cantidad'/></button>
                   <span className="cantidad-item">{item.cantidad}</span>
-                  <button onClick={() => handleIncrementar(item.instrumento.id)}><img src={mas} alt='iconoMas'/></button>
+                  <button onClick={() => handleIncrementar(item.instrumento.id)}><img src={mas} alt='iconoMas' className='iconos-cantidad'/></button>
                 </div>
                 <div>
                   <button onClick={() => eliminarDelCarrito(Number(item.instrumento.id))} className="boton-eliminar" > Eliminar </button>

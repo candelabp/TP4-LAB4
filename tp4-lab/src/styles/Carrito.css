@@ -74,15 +74,17 @@
 }
 
 .controles-item button {
-    border: 1px solid #b9b9b97e;
-    /* border: none; */
+    border: none;
     background-color: #f3f4f600;
     color: #1f2937;
     padding: 0.2rem 0.5rem;
-    width: 2rem;
-    height: 2rem;
     border-radius: 9999px;
     cursor: pointer;
+}
+
+.iconos-cantidad {
+    width: 1.2rem;
+    height: 1.2rem;
 }
 
 .controles-cantidad {
