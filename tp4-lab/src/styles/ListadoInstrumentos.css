@@ -1,6 +1,10 @@
 html, body {
-    margin: 20vh;
+    margin: 0;
     padding: 0;
     height: 100%;
     width: 100%; 
+}
+
+.lista-instrumentos {
+    margin: 5vh 20vh;
 }
