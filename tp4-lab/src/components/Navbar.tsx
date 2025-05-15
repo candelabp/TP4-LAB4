@@ -86,10 +86,7 @@ export const Navbar = () => {
                   }
                 }}
               >
-                <img className={`iconosNav ${usuarioLogueado ? 'iconoLogueado' : ''}`} src={carritoIcono} alt="Carrito" />
-                {usuarioLogueado && (
-                  <span className='rolUsuario'> {usuarioLogueado.rol}</span>
-                )}
+                <img className="iconosNav" src={carritoIcono} alt="Carrito" />
               </button>
             </li>
             <li>
@@ -100,7 +97,11 @@ export const Navbar = () => {
                   setModalRegistroVisible(true);
                 }
               }}>
-                <img className="iconosNav" src={loginIcono} alt="login" />
+                <img className={`iconosNav ${usuarioLogueado ? 'iconoLogueado' : ''}`} src={loginIcono} alt="login" >
+                  {usuarioLogueado && (
+                    <span className='rolUsuario'> {usuarioLogueado.rol}</span>
+                  )}
+                </img>
               </button>
             </li>
           </ul>

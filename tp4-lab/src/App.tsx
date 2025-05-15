@@ -20,14 +20,11 @@ const App: React.FC = () => {
           <Route path="/home" element={<Home />} />
           <Route path="/" element={<Navigate to="/home" replace />} />
           <Route path="/instrumentos" element={<ListadoInstrumentos />} /> 
-
-          {/* Rutas privadas */}
-          
+          <Route path="/detalle/:id" element={<DetalleInstrumento />} />
         
           {/*ruta privada y con Rol Administrador*/}
           <Route element={<RolUsuario rol={Rol.ADMIN}/>}>
             <Route path="/tabla" element={<TablaInstrumentos />} />
-            <Route path="/detalle/:id" element={<DetalleInstrumento />} />
             <Route path="/pedidos" element={<ListadoPedidos />} />
             <Route path="/pedidos/:id" element={<DetallePedido />} />
           </Route> 

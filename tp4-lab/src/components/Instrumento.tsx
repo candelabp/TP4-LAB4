@@ -59,7 +59,6 @@ const Instrumento: React.FC<Props> = ({ instrumento }) => {
                 alert("¡Producto agregado al carrito!");
               }
             }}
-            disabled={!usuarioLogueado || esAdmin}
           >
             Agregar al carrito
           </button>

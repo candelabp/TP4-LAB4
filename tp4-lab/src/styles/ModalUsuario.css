@@ -35,8 +35,16 @@
 .btnCerrarSesion{
     padding: 8px;
     border-radius: 1rem;
-    border: 1px solid #d1d5db;
-    background-color: #f3f4f6;
-    color: #111827;
+    border: none;
+    background-color: #1f2937;
+    color: #f3f4f6;
     font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btnCerrarSesion:hover{
+    transform: scale(1.05);
+    background-color: #111827;
+    color: #f3f4f6;
 }
