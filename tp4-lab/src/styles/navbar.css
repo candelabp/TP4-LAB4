@@ -52,9 +52,10 @@
 }
 
 .navbar-link-btn {
+  text-decoration: none;
   background: none;
   border: none;
-  color: inherit;
+  color: #000000;
   font: inherit;
   cursor: pointer;
   padding: 0;
@@ -63,20 +64,7 @@
 
 .navbar-link-btn:hover {
   text-decoration: underline;
-}
-
-.navbarScrollLink {
-  text-decoration: none;
-  cursor: pointer;
   color: #000000;
-  background: none;
-  border: none;
-  font: inherit;
-}
-
-.navbarScrollLink:hover {
-  color: #000000;
-  text-decoration: underline;
 }
 
 .iconosNav {
