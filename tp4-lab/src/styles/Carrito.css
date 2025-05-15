@@ -43,16 +43,17 @@
     margin-bottom: 0.75rem;
 }
 
-.imagen-item {
+/* .imagen-item {
     width: 3.5rem;
     height: 3.5rem;
     border-radius: 15px;
     box-shadow: 0 0 0 1px #d1d5db;
-}
+} */
 
 .detalles-item {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
 }
 
 .nombre-item {
@@ -73,9 +74,11 @@
 }
 
 .controles-item button {
-    border: 1px solid #1f2937;
+    border: 1px solid #b9b9b97e;
+    /* border: none; */
+    background-color: #f3f4f600;
     color: #1f2937;
-    padding: 0.25rem 0.5rem;
+    padding: 0.2rem 0.5rem;
     border-radius: 9999px;
     cursor: pointer;
 }
