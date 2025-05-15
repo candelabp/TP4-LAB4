@@ -103,7 +103,7 @@
 }
 
 /* Estilos para el detalle del instrumento */
-.detalle-container {
+/* .detalle-container {
   display: flex;
   gap: 40px;
   padding: 40px;
@@ -112,7 +112,7 @@
   border-radius: 8px;
   max-width: 1200px;
   margin: auto;
-}
+} */
 
 .detalle-img {
   width: 500px;
@@ -182,7 +182,7 @@
 }
 
 /* Botón Volver */
-.boton-volver {
+/* .boton-volver {
   position: absolute;
   top: 20px;
   left: 20px;
@@ -197,4 +197,19 @@
 
 .boton-volver:hover {
   background-color: #0056b3;
+} */
+
+.botonX{
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.botonX:hover {
+  color: #111827;
 }

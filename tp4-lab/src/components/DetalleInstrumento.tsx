@@ -38,8 +38,8 @@ const DetalleInstrumento: React.FC<Props> = ({ id, onClose }) => {
   if (!instrumento) return <p>Cargando...</p>;
 
   return (
-    <div className="detalle-container">
-      <button onClick={onClose} className="" type="button">✕</button>
+    <div>
+      <button onClick={onClose} className="botonX" type="button">✕</button>
       <div className="detalle-info">
         <p className="vendidos">{instrumento.cantidadVendida} vendidos</p>
         <h2>{instrumento.instrumento}</h2>
