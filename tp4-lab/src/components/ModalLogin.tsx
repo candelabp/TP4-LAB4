@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import '../styles/ModalRegistroLogin.css';
 import { Usuario } from '../Entidades/Usuario';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
+const MySwal = withReactContent(Swal)
 
 
 type Props = {
@@ -27,7 +31,6 @@ const ModalLogin: React.FC<Props> = ({ onClose, onOpenRegistro }) => {
 
         try {
             const usuario = new Usuario(nombreUsuario, clave);
-
             const response = await fetch("http://localhost:8080/api/usuarios/login", {
                 method: "POST",
                 headers: {
@@ -39,8 +42,9 @@ const ModalLogin: React.FC<Props> = ({ onClose, onOpenRegistro }) => {
                 })
             });
 
+            const data = await response.json();
+
             if (response.ok) {
-                const data = await response.json();
                 const usuarioLogueado = new Usuario(
                     data.nombreUsuario,
                     '',
@@ -48,16 +52,29 @@ const ModalLogin: React.FC<Props> = ({ onClose, onOpenRegistro }) => {
                     data.id
                 );
                 localStorage.setItem("usuario", JSON.stringify(usuarioLogueado));
-                alert("Inicio de sesión exitoso");
                 onClose();
                 window.location.reload();
             } else {
-                const errorData = await response.json().catch(() => ({}));
-                throw new Error(errorData.message || "Error al iniciar sesión");
+                
+                Swal.fire({
+                    position: "bottom-end",
+                    icon: "error",
+                    title: data.mensaje, 
+                    showConfirmButton: false,
+                    timer: 2000,
+                    width: "22em"
+                });
             }
         } catch (err) {
             console.error("Error al iniciar sesión:", err);
-            alert("Error al iniciar sesión");
+            Swal.fire({
+                position: "bottom-end",
+                icon: "error",
+                title: "Error de conexión con el servidor",
+                showConfirmButton: false,
+                timer: 2000,
+                width: "22em"
+            });
         } finally {
             setIsLoading(false);
         }
@@ -73,16 +90,21 @@ const ModalLogin: React.FC<Props> = ({ onClose, onOpenRegistro }) => {
             <form onSubmit={handleLogin}>
                 <div className="formRegistroLogin">
                     <label htmlFor="nombreUsuario">Usuario</label>
-                    <input type="text" id="nombreUsuario" placeholder="Usuario" value={nombreUsuario} onChange={e => setNombreUsuario(e.target.value)} disabled={isLoading}/>
+                    <input type="text" id="nombreUsuario" placeholder="Usuario" value={nombreUsuario} onChange={e => setNombreUsuario(e.target.value)} disabled={isLoading} />
 
                     <label htmlFor="contrasenia">Contraseña</label>
-                    <input type="password" id="contrasenia" placeholder="Contraseña" value={clave} onChange={e => setClave(e.target.value)} disabled={isLoading}/>
+                    <input type="password" id="contrasenia" placeholder="Contraseña" value={clave} onChange={e => setClave(e.target.value)} disabled={isLoading} />
                 </div>
 
                 <div className="btnModal">
                     <button className='btnRegistroLogin' type='submit' disabled={isLoading}>{isLoading ? 'Iniciando sesión...' : 'Iniciar sesión'}</button>
                     <button className='btnCancelar' onClick={onClose} disabled={isLoading}> Cancelar </button>
-                    <button className='btnRedirigir' onClick={onOpenRegistro} disabled={isLoading}>¿No tenés cuenta? Registrate</button>
+                    <button type="button" className='btnRedirigir' onClick={(e) => {
+                        e.preventDefault();
+                        onOpenRegistro();
+                    }}
+                        disabled={isLoading}
+                    >¿No tenés cuenta? Registrate</button>
                 </div>
             </form>
         </div>

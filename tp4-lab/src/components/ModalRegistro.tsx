@@ -2,6 +2,10 @@ import React, { useState } from 'react'
 import '../styles/ModalRegistroLogin.css';
 import { Usuario } from '../Entidades/Usuario';
 import { Rol } from '../Entidades/Rol';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
+const MySwal = withReactContent(Swal)
 
 type Props = {
     onClose: () => void;
@@ -21,6 +25,7 @@ const ModalRegistro: React.FC<Props> = ({ onClose, onOpenLogin }) => {
         e.preventDefault();
         setError('');
 
+        // Validaciones del lado del cliente
         if (!nombreUsuario || !clave || !repetirContrasenia) {
             setError("Por favor completa todos los campos");
             return;
@@ -41,7 +46,7 @@ const ModalRegistro: React.FC<Props> = ({ onClose, onOpenLogin }) => {
         setIsLoading(true);
 
         try {
-            const usuario = new Usuario(nombreUsuario, clave, rol)
+            const usuario = new Usuario(nombreUsuario, clave, rol);
             const response = await fetch("http://localhost:8080/api/usuarios", {
                 method: "POST",
                 headers: {
@@ -49,8 +54,10 @@ const ModalRegistro: React.FC<Props> = ({ onClose, onOpenLogin }) => {
                 },
                 body: JSON.stringify(usuario)
             });
+
+            const data = await response.json();
+
             if (response.ok) {
-                const data = await response.json();
                 const usuarioRegistrado = new Usuario(
                     data.nombreUsuario,
                     '',
@@ -58,16 +65,40 @@ const ModalRegistro: React.FC<Props> = ({ onClose, onOpenLogin }) => {
                     data.id
                 );
                 localStorage.setItem("usuario", JSON.stringify(usuarioRegistrado));
-                alert("Registro exitoso");
+
+                
+                Swal.fire({
+                    position: "bottom-end",
+                    icon: "success",
+                    title: "Registro exitoso",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    width: "20em"
+                });
+
                 onClose();
                 window.location.reload();
             } else {
-                const errorData = await response.json().catch(() => ({}));
-                throw new Error(errorData.message || "Error al registrarse");            
+                
+                Swal.fire({
+                    position: "bottom-end",
+                    icon: "error",
+                    title: data.mensaje,
+                    showConfirmButton: false,
+                    timer: 2000,
+                    width: "22em"
+                });
             }
         } catch (err) {
             console.error("Error al registrarse: ", err);
-            alert("Error al registrarse");
+            Swal.fire({
+                position: "bottom-end",
+                icon: "error",
+                title: "Error de conexión con el servidor",
+                showConfirmButton: false,
+                timer: 2000,
+                width: "22em"
+            });
         } finally {
             setIsLoading(false);
         }
@@ -82,14 +113,14 @@ const ModalRegistro: React.FC<Props> = ({ onClose, onOpenLogin }) => {
 
             <form onSubmit={handleRegistrarse}>
                 <div className='formRegistroLogin'>
-                    <label htmlFor="nombreUsuario">Nombre Usuario</label>
-                    <input type="text" id="nombreUsuario" placeholder="Nombre y Apellido" value={nombreUsuario} onChange={e => setNombreUsuario(e.target.value)} disabled={isLoading}/>
+                    <label htmlFor="nombreUsuario">Nombre de Usuario</label>
+                    <input type="text" id="nombreUsuario" placeholder="Ingrese un nombre de usuario" value={nombreUsuario} onChange={e => setNombreUsuario(e.target.value)} disabled={isLoading} />
 
                     <label htmlFor="contrasenia">Contraseña</label>
-                    <input type="password" id="contrasenia" placeholder="Contraseña" value={clave} onChange={e => setClave(e.target.value)} disabled={isLoading}/>
+                    <input type="password" id="contrasenia" placeholder="Ingrese una contraseña" value={clave} onChange={e => setClave(e.target.value)} disabled={isLoading} />
 
                     <label htmlFor="repetirContraseña">Repetir Contraseña</label>
-                    <input type="password" id="repetirContraseña" placeholder="Repetir Contraseña" value={repetirContrasenia} onChange={e => setRepetirContrasenia(e.target.value)} disabled={isLoading}/>
+                    <input type="password" id="repetirContraseña" placeholder="Repita la contraseña" value={repetirContrasenia} onChange={e => setRepetirContrasenia(e.target.value)} disabled={isLoading} />
                 </div>
 
                 <div className="checkboxRol">
@@ -106,7 +137,12 @@ const ModalRegistro: React.FC<Props> = ({ onClose, onOpenLogin }) => {
                 <div className="btnModal">
                     <button className='btnRegistroLogin' type="submit" disabled={isLoading}> {isLoading ? 'Registrando...' : 'Registrarse'} </button>
                     <button className='btnCancelar' onClick={onClose} disabled={isLoading}> Cancelar </button>
-                    <button className='btnRedirigir' onClick={onOpenLogin} disabled={isLoading}>¿Ya tenés cuenta? Iniciá sesión</button>
+                    <button type="button" className='btnRedirigir' onClick={(e) => {
+                        e.preventDefault();
+                        onOpenLogin();
+                    }}
+                        disabled={isLoading}
+                    >¿Ya tenés cuenta? Iniciá sesión</button>
                 </div>
             </form>
         </div>
