@@ -5,7 +5,10 @@ import { fetchInstrumentos } from '../utils/fetchInstrumentos';
 import '../styles/instrumento.css';
 import { useCarrito } from '../context/CarritoContext';
 import { Rol } from '../Entidades/Rol';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
+const MySwal = withReactContent(Swal)
 const getImage = (imageName: string) => {
   return new URL(`../assets/img/${imageName}`, import.meta.url).href;
 };
@@ -71,28 +74,45 @@ const DetalleInstrumento: React.FC<Props> = ({ id, onClose }) => {
           </div>
 
           <div className="descripcion">
-          <p><strong>Descripción: </strong>{instrumento.descripcion}</p>
-        </div>
+            <p><strong>Descripción: </strong>{instrumento.descripcion}</p>
+          </div>
 
         </div>
         {!fromTabla && (
           <button className="boton-agregar" onClick={() => {
             if (!usuarioLogueado) {
-              alert("Debes iniciar sesión para agregar productos al carrito.");
+              Swal.fire({
+                position: "bottom-end",
+                icon: "warning",
+                title: "Debes iniciar sesión para agregar productos al carrito",
+                showConfirmButton: false,
+                timer: 1000,
+                width: "20em"
+              });
             } else if (esAdmin) {
-              alert("Debes ser cliente para agregar productos al carrito.");
+
+              Swal.fire({
+                position: "bottom-end",
+                icon: "warning",
+                title: "Debes ser cliente para agregar productos al carrito",
+                showConfirmButton: false,
+                timer: 1000,
+                width: "20em"
+              });
             } else {
               agregarAlCarrito(instrumento);
-              alert("¡Producto agregado al carrito!");
+              Swal.fire({
+                position: "bottom-end",
+                icon: "success",
+                title: "Instrumento agregado al carrito",
+                showConfirmButton: false,
+                timer: 1000,
+                width: "20em"
+              });
             }
           }}
           >Agregar al carrito</button>
         )}
-        {/* {fromTabla ? (
-          <button className="btn-agregar" onClick={() => navigate('/tabla')}>Volver a la tabla</button>
-        ) : (
-          <button className="btn-agregar" onClick={() => navigate('/home')}>Volver al home</button>
-        )} */}
       </div>
     </div>
   );

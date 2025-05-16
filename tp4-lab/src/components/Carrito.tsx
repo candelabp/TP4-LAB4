@@ -64,7 +64,7 @@ const Carrito: React.FC<Props> = ({ onClose }) => {
 
       if (!response.ok) throw new Error("Error al guardar el pedido");
 
-      const preferenceResponse = await response.json();  // Aquí obtienes la respuesta con la preferencia de Mercado Pago
+      const preferenceResponse = await response.json();
       if (preferenceResponse.id) {
         // Ahora le pasas el id de la preferencia al componente CheckoutMP
         alert(`El pedido se guardó correctamente. ID de preferencia: ${preferenceResponse.id}`);

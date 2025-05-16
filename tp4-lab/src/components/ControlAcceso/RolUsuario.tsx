@@ -1,6 +1,6 @@
 import { use, useState } from "react";
 import { Rol } from "../../Entidades/Rol";
-import Usuario from "../../Entidades/Usuario";
+import { Usuario } from "../../Entidades/Usuario";
 import { Navigate, Outlet } from "react-router-dom";
 
 interface Props {
@@ -13,8 +13,6 @@ function RolUsuario({ rol }: Props) {
 
     if (usuarioLogueado && usuarioLogueado.rol === Rol.ADMIN) {
         return <Outlet />
-    } else if (usuarioLogueado && usuarioLogueado.rol === Rol.CLIENTE) {
-        return <Navigate to="/" />
     }else {
         return <Navigate to="/home" />
     }

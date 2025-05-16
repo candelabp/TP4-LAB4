@@ -1,12 +1,14 @@
-import React, { ReactNode } from 'react'
-import { Navigate } from 'react-router-dom';
+// import React, { ReactNode } from 'react'
+// import { Navigate } from 'react-router-dom';
 
-export const RutaPrivada = ({children}: {children: ReactNode}) => {
-    const usuarioStr = localStorage.getItem("usuario");
-    const usuario = usuarioStr ? JSON.parse(usuarioStr) : null;
+// export const RutaPrivada = ({children}: {children: ReactNode}) => {
+//     const usuarioStr = localStorage.getItem("usuario");
+//     const usuario = usuarioStr ? JSON.parse(usuarioStr) : null;
 
-    return usuario ? children : <Navigate to='/home'/>
-}
+//     return usuario ? children : <Navigate to='/home'/>
+// }
+
+// VIEJO -----------------
 
 /*import React, { ReactNode, useState } from 'react'
 import Usuario from '../../Entidades/Usuario';

@@ -5,6 +5,10 @@ import { Link } from 'react-router-dom';
 import { useCarrito } from '../context/CarritoContext';
 import { Rol } from '../Entidades/Rol';
 import DetalleInstrumento from './DetalleInstrumento';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
+const MySwal = withReactContent(Swal)
 
 interface Props {
   instrumento: InstrumentoType;
@@ -53,12 +57,33 @@ const Instrumento: React.FC<Props> = ({ instrumento }) => {
             className="btn-ver-detalle"
             onClick={() => {
               if (!usuarioLogueado) {
-                alert("Debes iniciar sesión para agregar productos al carrito.");
+                Swal.fire({
+                  position: "bottom-end",
+                  icon: "warning",
+                  title: "Debes iniciar sesión para agregar productos al carrito",
+                  showConfirmButton: false,
+                  timer: 1000,
+                  width: "20em"
+                });
               } else if (esAdmin) {
-                alert("Debes ser cliente para agregar productos al carrito.");
+                Swal.fire({
+                  position: "bottom-end",
+                  icon: "warning",
+                  title: "Debes ser cliente para agregar productos al carrito",
+                  showConfirmButton: false,
+                  timer: 1000,
+                  width: "20em"
+                });
               } else {
                 agregarAlCarrito(instrumento);
-                alert("¡Producto agregado al carrito!");
+                Swal.fire({
+                  position: "bottom-end",
+                  icon: "success",
+                  title: "Instrumento agregado al carrito",
+                  showConfirmButton: false,
+                  timer: 1000,
+                  width: "20em"
+                });
               }
             }}
           > Agregar al carrito
@@ -69,7 +94,7 @@ const Instrumento: React.FC<Props> = ({ instrumento }) => {
       {modalVerDetalle && (
         <div className='modalVerDetalle'>
           <div className='contenidoModal'>
-            <DetalleInstrumento id={instrumento.id} onClose={() => setModalVerDetalle(false)}/>
+            <DetalleInstrumento id={instrumento.id} onClose={() => setModalVerDetalle(false)} />
           </div>
         </div>
       )}

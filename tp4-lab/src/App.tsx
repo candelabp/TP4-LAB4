@@ -9,7 +9,7 @@ import ListadoPedidos from './pages/ListadoPedidos';
 import DetallePedido from './pages/DetallePedido';
 import RolUsuario from './components/ControlAcceso/RolUsuario';
 import { Rol } from './Entidades/Rol';
-import { RutaPrivada } from './components/ControlAcceso/RutaPrivada';
+// import { RutaPrivada } from './components/ControlAcceso/RutaPrivada';
 
 const App: React.FC = () => {
   return (
@@ -20,7 +20,6 @@ const App: React.FC = () => {
           <Route path="/home" element={<Home />} />
           <Route path="/" element={<Navigate to="/home" replace />} />
           <Route path="/instrumentos" element={<ListadoInstrumentos />} /> 
-          <Route path="/detalle/:id" element={<DetalleInstrumento />} />
         
           {/*ruta privada y con Rol Administrador*/}
           <Route element={<RolUsuario rol={Rol.ADMIN}/>}>
