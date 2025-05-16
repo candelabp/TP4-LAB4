@@ -51,7 +51,11 @@ export const Navbar = () => {
             <li><button className="navbar-link-btn" onClick={() => navigate('/home')}>Inicio</button></li>
             <li><ScrollLink smooth={true} duration={100} to="donde-estamos"><span className="navbar-link-btn">Donde estamos</span></ScrollLink></li>
             <li><ScrollLink smooth={true} duration={100} to="productos"><span className="navbar-link-btn">Productos</span></ScrollLink></li>
-            <li><button className="navbar-link-btn" onClick={() => navigate('/tabla')}>Admin</button></li>
+            {usuarioLogueado && usuarioLogueado.rol === Rol.ADMIN && (
+              <li>
+                <button className="navbar-link-btn" onClick={() => navigate('/tabla')}>Admin</button>
+              </li>
+            )}
             <li><button className="navbar-link-btn" onClick={() => navigate('/pedidos')}>Pedidos</button></li>
             <li><button className="navbar-link-btn" onClick={() => {
               if (!usuarioLogueado) {
