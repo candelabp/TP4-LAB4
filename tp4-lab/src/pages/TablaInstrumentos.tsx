@@ -5,6 +5,9 @@ import { fetchCategorias } from '../utils/fetchCategorias';
 import { fetchInstrumentos } from '../utils/fetchInstrumentos';
 import "../styles/TablaInstrumentos.css";
 import FormularioInstrumento from '../components/FormularioInstrumento';
+import { PDFDownloadLink, pdf } from '@react-pdf/renderer';
+import { saveAs } from 'file-saver';
+import { PDFInstrumento } from '../components/PDFInstrumento';
 // import Navbar from '../components/Navbar';
 
 const TablaInstrumentos: React.FC = () => {
@@ -74,6 +77,35 @@ const TablaInstrumentos: React.FC = () => {
         setInstrumentoEditar(null);
     };
 
+    // Función para convertir imagen local a base64
+    const getImageBase64 = async (imgPath: string): Promise<string> => {
+        const response = await fetch(imgPath);
+        const blob = await response.blob();
+        return new Promise<string>((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result as string);
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+        });
+    };
+
+    // ...existing code...
+
+    const handleExportPDF = async (instrumento: InstrumentoType) => {
+        // Obtén la ruta de la imagen local
+        let imgPath = '';
+        if (instrumento.imagen.trim().toLowerCase().startsWith('http')) {
+            imgPath = instrumento.imagen.trim();
+        } else {
+            imgPath = new URL(`../assets/img/${instrumento.imagen.trim()}`, import.meta.url).href;
+        }
+        const imagenBase64 = await getImageBase64(imgPath);
+
+        const doc = <PDFInstrumento instrumento={instrumento} imagenBase64={imagenBase64} />;
+        const asPdf = pdf(doc);
+        const blob = await asPdf.toBlob();
+        saveAs(blob, `${instrumento.instrumento}.pdf`);
+    };
 
 
     return (
@@ -136,6 +168,7 @@ const TablaInstrumentos: React.FC = () => {
                         <th>Ver</th>
                         <th>Editar</th>
                         <th>Eliminar</th>
+                        <th>PDF</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -184,6 +217,14 @@ const TablaInstrumentos: React.FC = () => {
                                 ) : (
                                     <button className="icon" onClick={() => handleEliminar(instrumento.id)}>Eliminar</button>
                                 )}
+                            </td>
+                            <td>
+                                <button
+                                    className="icon"
+                                    onClick={() => handleExportPDF(instrumento)}
+                                >
+                                    Exportar PDF
+                                </button>
                             </td>
                         </tr>
                     ))}
