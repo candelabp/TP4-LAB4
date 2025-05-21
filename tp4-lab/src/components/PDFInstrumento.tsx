@@ -2,49 +2,119 @@ import { Document, Page, Text, Image, StyleSheet, View } from '@react-pdf/render
 import { InstrumentoType } from '../Entidades/types';
 
 const styles = StyleSheet.create({
-  page: { padding: 24, fontSize: 12, fontFamily: 'Helvetica' },
-  title: { fontSize: 20, marginBottom: 12, fontWeight: 'bold' },
-  img: { width: 200, height: 200, objectFit: 'contain', marginBottom: 16 },
-  row: { flexDirection: 'row', marginBottom: 8 },
-  label: { fontWeight: 'bold', width: 90 },
-  value: {},
-  desc: { marginTop: 12 }
+  page: {
+    fontFamily: 'Helvetica',
+    fontSize: 12,
+    padding: 40,
+    backgroundColor: '#fff'
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    marginBottom: 30,
+    textAlign: 'left',
+    color: '#333'
+  },
+  imageContainer: {
+    alignItems: 'center',
+    marginBottom: 15,
+  },
+  image: {
+    width: 200,
+    height: 160,
+    objectFit: 'contain',
+  },
+  precioContainer: {
+    alignItems: 'center',
+    marginBottom: 30,
+    marginTop: 10
+  },
+  precio: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  datosRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 4,
+  },
+  datoColumn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  datoColumnRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    textAlign: 'right',
+  },
+  label: {
+    fontWeight: 'bold',
+    fontSize: 14,
+    marginRight: 5,
+  },
+  value: {
+    fontSize: 14,
+  },
+  costoEnvio: {
+    marginTop: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  descripcionContainer: {
+    marginTop: 15,
+  },
+  descripcionLabel: {
+    fontWeight: 'bold',
+    fontSize: 14,
+    marginBottom: 5,
+  },
+  descripcionText: {
+    lineHeight: 1.5,
+    fontSize: 13,
+  }
 });
 
-type Props = { instrumento: InstrumentoType; imagenBase64: string };
+type Props = {
+  instrumento: InstrumentoType;
+  imagenBase64: string;
+};
 
 export const PDFInstrumento = ({ instrumento, imagenBase64 }: Props) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <Text style={styles.title}>{instrumento.instrumento}</Text>
-      <Image style={styles.img} src={imagenBase64} />
-      <View style={styles.row}>
-        <Text style={styles.label}>Marca:</Text>
-        <Text style={styles.value}>{instrumento.marca}</Text>
+      
+      <View style={styles.imageContainer}>
+        <Image style={styles.image} src={imagenBase64} />
       </View>
-      <View style={styles.row}>
-        <Text style={styles.label}>Modelo:</Text>
-        <Text style={styles.value}>{instrumento.modelo}</Text>
+      
+      <View style={styles.precioContainer}>
+        <Text style={styles.precio}>Precio: ${instrumento.precio}</Text>
       </View>
-      <View style={styles.row}>
-        <Text style={styles.label}>Precio:</Text>
-        <Text style={styles.value}>${instrumento.precio}</Text>
+      
+      <View style={styles.datosRow}>
+        <View style={styles.datoColumn}>
+          <Text style={styles.label}>Marca:</Text>
+          <Text style={styles.value}>{instrumento.marca}</Text>
+        </View>
+        
+        <View style={styles.datoColumnRight}>
+          <Text style={styles.label}>Modelo:</Text>
+          <Text style={styles.value}>{instrumento.modelo}</Text>
+        </View>
       </View>
-      <View style={styles.row}>
-        <Text style={styles.label}>Categoría:</Text>
-        <Text style={styles.value}>{instrumento.categoria?.nombre || 'Sin categoría'}</Text>
-      </View>
-      <View style={styles.row}>
-        <Text style={styles.label}>Vendidos:</Text>
-        <Text style={styles.value}>{instrumento.cantidadVendida}</Text>
-      </View>
-      <View style={styles.row}>
+      
+      <View style={styles.costoEnvio}>
         <Text style={styles.label}>Costo Envío:</Text>
         <Text style={styles.value}>
           {instrumento.costoEnvio === 'G' ? 'Envío gratis' : `$${instrumento.costoEnvio}`}
         </Text>
       </View>
-      <Text style={styles.desc}><Text style={styles.label}>Descripción: </Text>{instrumento.descripcion}</Text>
+      
+      <View style={styles.descripcionContainer}>
+        <Text style={styles.descripcionLabel}>Descripción:</Text>
+        <Text style={styles.descripcionText}>{instrumento.descripcion}</Text>
+      </View>
     </Page>
   </Document>
 );
