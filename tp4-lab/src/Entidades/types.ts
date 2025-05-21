@@ -16,3 +16,8 @@ export interface InstrumentoType {
   activo: boolean;
   categoria?: CategoriaType; 
 }
+
+
+export interface DataBarChart extends Array<[string, number] | [string, string]> {}
+
+export type DataPieChart = [header: [string, string], ...rows: [string, number][]];

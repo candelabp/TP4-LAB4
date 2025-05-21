@@ -9,6 +9,8 @@ import ListadoPedidos from './pages/ListadoPedidos';
 import DetallePedido from './pages/DetallePedido';
 import RolUsuario from './components/ControlAcceso/RolUsuario';
 import { Rol } from './Entidades/Rol';
+import Graficos from './pages/Graficos';
+
 // import { RutaPrivada } from './components/ControlAcceso/RutaPrivada';
 
 const App: React.FC = () => {
@@ -25,7 +27,8 @@ const App: React.FC = () => {
           <Route element={<RolUsuario rol={Rol.ADMIN}/>}>
             <Route path="/tabla" element={<TablaInstrumentos />} />
             <Route path="/pedidos" element={<ListadoPedidos />} />
-            <Route path="/pedidos/:id" element={<DetallePedido />} />
+            <Route path="/graficos" element={<Graficos />} />
+
           </Route> 
         </Routes>
       </Router>

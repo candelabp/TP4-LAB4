@@ -48,28 +48,56 @@ export const Navbar = () => {
             Musical Hendrix
           </span>
           <ul className="navbar-menu">
-            <li><button className="navbar-link-btn" onClick={() => navigate('/home')}>Inicio</button></li>
-            <li><ScrollLink smooth={true} duration={100} to="donde-estamos"><span className="navbar-link-btn">Donde estamos</span></ScrollLink></li>
-            <li><ScrollLink smooth={true} duration={100} to="productos"><span className="navbar-link-btn">Productos</span></ScrollLink></li>
-            {usuarioLogueado && usuarioLogueado.rol === Rol.ADMIN && (
+            <li>
+              <button className="navbar-link-btn" onClick={() => navigate('/home')}>Inicio</button>
+            </li>
+            {/* Ocultar "Donde estamos" si el usuario es admin */}
+            {!(usuarioLogueado && usuarioLogueado.rol === Rol.ADMIN) && (
               <li>
-                <button className="navbar-link-btn" onClick={() => navigate('/tabla')}>Admin</button>
+                <ScrollLink smooth={true} duration={100} to="donde-estamos">
+                  <span className="navbar-link-btn">Donde estamos</span>
+                </ScrollLink>
               </li>
             )}
-            <li><button className="navbar-link-btn" onClick={() => navigate('/pedidos')}>Pedidos</button></li>
-            <li><button className="navbar-link-btn" onClick={() => {
-              if (!usuarioLogueado) {
-                alert("Debes iniciar sesión para ver el carrito.");
-                setModalLoginVisible(true);
-              } else if (usuarioLogueado.rol === Rol.ADMIN) {
-                alert("Solo los clientes pueden acceder al carrito.");
-              } else {
-                setCarritoVisible(true);
-              }
-            }}>
-              <img className="iconosNav" src={carritoIcono} alt="Carrito" />
-            </button>
+            {!(usuarioLogueado && usuarioLogueado.rol=== Rol.ADMIN) && (
+              <li>
+              <ScrollLink smooth={true} duration={100} to="productos">
+                <span className="navbar-link-btn">Productos</span>
+              </ScrollLink>
             </li>
+            )}
+          
+            {/* Mostrar botón Admin y link a gráficos solo para admin */}
+            {usuarioLogueado && usuarioLogueado.rol === Rol.ADMIN && (
+              <>
+                <li>
+                  <button className="navbar-link-btn" onClick={() => navigate('/tabla')}>Admin</button>
+                </li>
+                <li>
+                  <button className="navbar-link-btn" onClick={() => navigate('/graficos')}>Gráficos</button>
+                </li>
+              </>
+            )}
+            <li>
+              <button className="navbar-link-btn" onClick={() => navigate('/pedidos')}>Pedidos</button>
+            </li>
+            {/* Ocultar carrito para admin */}
+            {!(usuarioLogueado && usuarioLogueado.rol === Rol.ADMIN) && (
+              <li>
+                <button className="navbar-link-btn" onClick={() => {
+                  if (!usuarioLogueado) {
+                    alert("Debes iniciar sesión para ver el carrito.");
+                    setModalLoginVisible(true);
+                  } else if (usuarioLogueado.rol === Rol.ADMIN) {
+                    alert("Solo los clientes pueden acceder al carrito.");
+                  } else {
+                    setCarritoVisible(true);
+                  }
+                }}>
+                  <img className="iconosNav" src={carritoIcono} alt="Carrito" />
+                </button>
+              </li>
+            )}
             <li> <button className="navbar-link-btn" onClick={() => {
               if (usuarioLogueado) {
                 setModalUsuarioVisible(true);

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import "../styles/ReporteExcel.css";
 
 const ReporteExcel = () => {
-  const [fechaDesde, setFechaDesde] = useState('');
-  const [fechaHasta, setFechaHasta] = useState('');
+  const [fechaInicio, setFechaInicio] = useState('');
+  const [fechaFin, setFechaFin] = useState('');
 
   const descargarExcel = async () => {
-    const response = await fetch(`http://localhost:8080/api/reportes/descargar-excel?fechaDesde=${fechaDesde}&fechaHasta=${fechaHasta}`);
+    const response = await fetch(`http://localhost:8080/api/pedidos/reportes?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`);
 
     if (response.ok) {
       const blob = await response.blob();
@@ -21,7 +22,7 @@ const ReporteExcel = () => {
   };
 
   return (
-    <form
+    <form className='formulario__excel'
       onSubmit={(e) => {
         e.preventDefault();
         descargarExcel();
@@ -29,14 +30,14 @@ const ReporteExcel = () => {
     >
       <input
         type="date"
-        value={fechaDesde}
-        onChange={(e) => setFechaDesde(e.target.value)}
+        value={fechaInicio}
+        onChange={(e) => setFechaInicio(e.target.value)}
         required
       />
       <input
         type="date"
-        value={fechaHasta}
-        onChange={(e) => setFechaHasta(e.target.value)}
+        value={fechaFin}
+        onChange={(e) => setFechaFin(e.target.value)}
         required
       />
       <button type="submit">Descargar Excel</button>

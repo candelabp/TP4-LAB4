@@ -5,6 +5,7 @@ import { fetchCategorias } from '../utils/fetchCategorias';
 import { fetchInstrumentos } from '../utils/fetchInstrumentos';
 import "../styles/TablaInstrumentos.css";
 import FormularioInstrumento from '../components/FormularioInstrumento';
+import Navbar from '../components/Navbar';
 // import Navbar from '../components/Navbar';
 
 const TablaInstrumentos: React.FC = () => {
@@ -77,119 +78,123 @@ const TablaInstrumentos: React.FC = () => {
 
 
     return (
-        <div className="tabla-instrumentos-container">
-            <button
-                className="btn-agregar"
-                style={{ marginBottom: 16 }}
-                onClick={() => navigate('/home')}
-            >
-                Ir al Home
-            </button>
-            <div className='div-titulo'>
-                <h2 className='titulo'>Instrumentos</h2>
-                <button className="btn-agregar" onClick={() => { setInstrumentoEditar(null); setMostrarFormulario(true); }}>Agregar Instrumento</button>
-            </div>
-            <div className="filtro-categoria">
-                <label>Filtrar por categoría: </label>
-                <select
-                    value={categoriaSeleccionada}
-                    onChange={e => setCategoriaSeleccionada(e.target.value)}
+        <>
+            <Navbar />
+            <div className="tabla-instrumentos-container">
+                <button
+                    className="btn-agregar"
+                    style={{ marginBottom: 16 }}
+                    onClick={() => navigate('/home')}
                 >
-                    <option value="">Todas</option>
-                    {categorias.map(cat => (
-                        <option key={cat.id} value={cat.id}>{cat.nombre}</option>
-                    ))}
-                </select>
-                <label style={{ marginLeft: 16 }}>Filtrar por estado: </label>
-                <select
-                    value={filtroActivo}
-                    onChange={e => setFiltroActivo(e.target.value)}
-                    style={{ marginLeft: 4 }}
-                >
-                    <option value="todos">Todos</option>
-                    <option value="activos">Activos</option>
-                    <option value="noactivos">No activos</option>
-                </select>
-            </div>
-            {mostrarFormulario && (
-                <div className="modal-overlay">
-                    <div className="contenedorModal">
-                        <button className="cerrar-modal" onClick={handleClose}>×</button>
-                        <FormularioInstrumento
-                            categorias={categorias}
-                            instrumento={instrumentoEditar || undefined}
-                            onClose={handleClose}
-                            onSubmit={handleSubmit}
-                        />
-                    </div>
+                    Ir al Home
+                </button>
+                <div className='div-titulo'>
+                    <h2 className='titulo'>Instrumentos</h2>
+                    <button className="btn-agregar" onClick={() => { setInstrumentoEditar(null); setMostrarFormulario(true); }}>Agregar Instrumento</button>
                 </div>
-            )}
-            <table className="tabla-instrumentos">
-                <thead>
-                    <tr>
-                        <th>Imagen</th>
-                        <th>Nombre</th>
-                        <th>Marca</th>
-                        <th>Modelo</th>
-                        <th>Precio</th>
-                        <th>Categoría</th>
-                        <th>Ver</th>
-                        <th>Editar</th>
-                        <th>Eliminar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {instrumentosFiltrados.map((instrumento) => (
-                        <tr key={instrumento.id}>
-                            <td>
-                                <img
-                                    className="img"
-                                    src={
-                                        instrumento.imagen.trim().toLowerCase().startsWith('http')
-                                            ? instrumento.imagen.trim()
-                                            : new URL(`../assets/img/${instrumento.imagen.trim()}`, import.meta.url).href
-                                    }
-                                    alt={instrumento.instrumento}
-                                />
-                            </td>
-                            <td>{instrumento.instrumento}</td>
-                            <td>{instrumento.marca}</td>
-                            <td>{instrumento.modelo}</td>
-                            <td>${instrumento.precio}</td>
-                            <td>{instrumento.categoria?.nombre || "Sin categoría"}</td>
-                            <td>
-                                <button className="icon" onClick={() => navigate(`/detalle/${instrumento.id}`, { state: { fromTabla: true } })}>Ver</button>
-                            </td>
-                            <td>
-                                <button className="icon" onClick={() => handleEditar(instrumento)}>Editar</button>
-                            </td>
-                            <td>
-                                {filtroActivo === "noactivos" ? (
-                                    <button
-                                        className="icon"
-                                        onClick={async () => {
-                                            // Cambiar el estado a activo
-                                            await fetch(`http://localhost:8080/api/instrumentos/${instrumento.id}`, {
-                                                method: 'PUT',
-                                                headers: { 'Content-Type': 'application/json' },
-                                                body: JSON.stringify({ ...instrumento, activo: true }),
-                                            });
-                                            // Recargar instrumentos
-                                            const nuevosInstrumentos = await fetchInstrumentos();
-                                            setInstrumentos(nuevosInstrumentos);
-                                        }}
-                                    >
-                                        Activar
-                                    </button>
-                                ) : (
-                                    <button className="icon" onClick={() => handleEliminar(instrumento.id)}>Eliminar</button>
-                                )}
-                            </td>
+                <div className="filtro-categoria">
+                    <label>Filtrar por categoría: </label>
+                    <select
+                        value={categoriaSeleccionada}
+                        onChange={e => setCategoriaSeleccionada(e.target.value)}
+                    >
+                        <option value="">Todas</option>
+                        {categorias.map(cat => (
+                            <option key={cat.id} value={cat.id}>{cat.nombre}</option>
+                        ))}
+                    </select>
+                    <label style={{ marginLeft: 16 }}>Filtrar por estado: </label>
+                    <select
+                        value={filtroActivo}
+                        onChange={e => setFiltroActivo(e.target.value)}
+                        style={{ marginLeft: 4 }}
+                    >
+                        <option value="todos">Todos</option>
+                        <option value="activos">Activos</option>
+                        <option value="noactivos">No activos</option>
+                    </select>
+                </div>
+                {mostrarFormulario && (
+                    <div className="modal-overlay">
+                        <div className="contenedorModal">
+                            <button className="cerrar-modal" onClick={handleClose}>×</button>
+                            <FormularioInstrumento
+                                categorias={categorias}
+                                instrumento={instrumentoEditar || undefined}
+                                onClose={handleClose}
+                                onSubmit={handleSubmit}
+                            />
+                        </div>
+                    </div>
+                )}
+                <table className="tabla-instrumentos">
+                    <thead>
+                        <tr>
+                            <th>Imagen</th>
+                            <th>Nombre</th>
+                            <th>Marca</th>
+                            <th>Modelo</th>
+                            <th>Precio</th>
+                            <th>Categoría</th>
+                            <th>Ver</th>
+                            <th>Editar</th>
+                            <th>Eliminar</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody>
+                        {instrumentosFiltrados.map((instrumento) => (
+                            <tr key={instrumento.id}>
+                                <td>
+                                    <img
+                                        className="img"
+                                        src={
+                                            instrumento.imagen.trim().toLowerCase().startsWith('http')
+                                                ? instrumento.imagen.trim()
+                                                : new URL(`../assets/img/${instrumento.imagen.trim()}`, import.meta.url).href
+                                        }
+                                        alt={instrumento.instrumento}
+                                    />
+                                </td>
+                                <td>{instrumento.instrumento}</td>
+                                <td>{instrumento.marca}</td>
+                                <td>{instrumento.modelo}</td>
+                                <td>${instrumento.precio}</td>
+                                <td>{instrumento.categoria?.nombre || "Sin categoría"}</td>
+                                <td>
+                                    <button className="icon" onClick={() => navigate(`/detalle/${instrumento.id}`, { state: { fromTabla: true } })}>Ver</button>
+                                </td>
+                                <td>
+                                    <button className="icon" onClick={() => handleEditar(instrumento)}>Editar</button>
+                                </td>
+                                <td>
+                                    {filtroActivo === "noactivos" ? (
+                                        <button
+                                            className="icon"
+                                            onClick={async () => {
+                                                // Cambiar el estado a activo
+                                                await fetch(`http://localhost:8080/api/instrumentos/${instrumento.id}`, {
+                                                    method: 'PUT',
+                                                    headers: { 'Content-Type': 'application/json' },
+                                                    body: JSON.stringify({ ...instrumento, activo: true }),
+                                                });
+                                                // Recargar instrumentos
+                                                const nuevosInstrumentos = await fetchInstrumentos();
+                                                setInstrumentos(nuevosInstrumentos);
+                                            }}
+                                        >
+                                            Activar
+                                        </button>
+                                    ) : (
+                                        <button className="icon" onClick={() => handleEliminar(instrumento.id)}>Eliminar</button>
+                                    )}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </>
+
     );
 };
 

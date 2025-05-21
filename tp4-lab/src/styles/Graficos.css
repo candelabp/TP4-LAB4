@@ -1,0 +1,26 @@
+.container__principal__graficos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.titulo__excel {
+    font-family: 'Segoe UI', sans-serif;
+    margin-bottom: 5px;
+}
+
+.opcion__graficos {
+    margin-top: 5vh;
+    display: flex;
+    justify-content: center;
+}
+
+.container__graficos {
+    width: 60%;
+}
+
+*{
+    font-family: 'Segoe UI', sans-serif;
+}
