@@ -9,7 +9,8 @@ import '../styles/modal.css'
 const ListadoPedidos: React.FC = () => {
   const { pedidos, loading, error } = usePedidos();
   const [orden, setOrden] = useState<'asc' | 'desc'>('desc');
-  const [modalDetallePedido, setModalDetallePedido] = useState<boolean>(false)
+  // const [modalDetallePedido, setModalDetallePedido] = useState<boolean>(false);
+  const [detallePedidoId, setDetallePedidoId] = useState<string | number | null>(null);
   const navigate = useNavigate();
 
   // Ordenar por id
@@ -48,18 +49,26 @@ const ListadoPedidos: React.FC = () => {
                 </p>
                 <button
                   className="btn-ver-detalles"
-                  onClick={() => setModalDetallePedido(true)}
+                  // onClick={() => setModalDetallePedido(true)}
+                  onClick={() => setDetallePedidoId(pedido.id)}
                 >
                   Ver Detalles
                 </button>
               </div>
-              {modalDetallePedido && (
+              {/* {modalDetallePedido && (
                     <div className='modal-overlay'>
                       <div className='modal-content'>
                         <DetallePedido id={pedido.id} onClose={() => setModalDetallePedido(false)} />
                       </div>
                     </div>
-                  )}
+                  )} */}
+              {detallePedidoId !== null && (
+                <div className='modal-overlay'>
+                  <div className='modal-content'>
+                    <DetallePedido id={detallePedidoId} onClose={() => setDetallePedidoId(null)} />
+                  </div>
+                </div>
+              )}
             </div>
           ))}
       </div>
