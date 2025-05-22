@@ -7,6 +7,7 @@ import { Rol } from '../Entidades/Rol';
 import DetalleInstrumento from './DetalleInstrumento';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import '../styles/modal.css'
 
 const MySwal = withReactContent(Swal)
 
@@ -92,8 +93,8 @@ const Instrumento: React.FC<Props> = ({ instrumento }) => {
       </div>
 
       {modalVerDetalle && (
-        <div className='modalVerDetalle'>
-          <div className='contenidoModal'>
+        <div className='modal-overlay'>
+          <div className='modal-content'>
             <DetalleInstrumento id={instrumento.id} onClose={() => setModalVerDetalle(false)} />
           </div>
         </div>

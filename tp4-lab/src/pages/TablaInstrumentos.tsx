@@ -7,6 +7,8 @@ import "../styles/TablaInstrumentos.css";
 import FormularioInstrumento from '../components/FormularioInstrumento';
 import { saveAs } from 'file-saver';
 import Navbar from '../components/Navbar';
+import DetalleInstrumento from '../components/DetalleInstrumento';
+import '../styles/modal.css'
 // import Navbar from '../components/Navbar';
 
 const TablaInstrumentos: React.FC = () => {
@@ -159,7 +161,14 @@ const TablaInstrumentos: React.FC = () => {
                                 <td>${instrumento.precio}</td>
                                 <td>{instrumento.categoria?.nombre || "Sin categoría"}</td>
                                 <td>
-                                    <button className="icon" onClick={() => navigate(`/detalle/${instrumento.id}`, { state: { fromTabla: true } })}>Ver</button>
+                                    <button className="icon" onClick={() => setMostrarModalDetalle(true)}>Ver</button>
+                                    {mostrarModalDetalle && (
+                                        <div className='modal-overlay'>
+                                            <div className='modal-content'>
+                                                <DetalleInstrumento id={instrumento.id} onClose={() => setMostrarModalDetalle(false)} />
+                                            </div>
+                                        </div>
+                                    )}
                                 </td>
                                 <td>
                                     <button className="icon" onClick={() => handleEditar(instrumento)}>Editar</button>

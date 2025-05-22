@@ -10,6 +10,7 @@ import { Usuario } from '../Entidades/Usuario';
 import ModalUsuario from './ModalUsuario';
 import { Rol } from '../Entidades/Rol';
 import { Link as ScrollLink } from 'react-scroll';
+import '../styles/modal.css'
 
 export const Navbar = () => {
   const [carritoVisible, setCarritoVisible] = useState(false);

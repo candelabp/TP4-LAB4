@@ -3,10 +3,13 @@ import usePedidos, { PedidoDTO } from '../hooks/usePedidos';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import '../styles/ListadoPedidos.css';
+import DetallePedido from '../components/DetallePedido';
+import '../styles/modal.css'
 
 const ListadoPedidos: React.FC = () => {
   const { pedidos, loading, error } = usePedidos();
   const [orden, setOrden] = useState<'asc' | 'desc'>('desc');
+  const [modalDetallePedido, setModalDetallePedido] = useState<boolean>(false)
   const navigate = useNavigate();
 
   // Ordenar por id
@@ -45,11 +48,18 @@ const ListadoPedidos: React.FC = () => {
                 </p>
                 <button
                   className="btn-ver-detalles"
-                  onClick={() => navigate(`/pedidos/${pedido.id}`)}
+                  onClick={() => setModalDetallePedido(true)}
                 >
                   Ver Detalles
                 </button>
               </div>
+              {modalDetallePedido && (
+                    <div className='modal-overlay'>
+                      <div className='modal-content'>
+                        <DetallePedido id={pedido.id} onClose={() => setModalDetallePedido(false)} />
+                      </div>
+                    </div>
+                  )}
             </div>
           ))}
       </div>
