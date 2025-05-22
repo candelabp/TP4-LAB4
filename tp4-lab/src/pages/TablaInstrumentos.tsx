@@ -16,6 +16,7 @@ const TablaInstrumentos: React.FC = () => {
     const [mostrarFormulario, setMostrarFormulario] = useState(false);
     const [instrumentoEditar, setInstrumentoEditar] = useState<InstrumentoType | null>(null);
     const [filtroActivo, setFiltroActivo] = useState<string>('todos');
+    const [mostrarModalDetalle, setMostrarModalDetalle] = useState<boolean>(false);
     const navigate = useNavigate();
 
     useEffect(() => {
