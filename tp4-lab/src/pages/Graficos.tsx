@@ -59,12 +59,8 @@ const Graficos = () => {
         <>
             <Navbar />
             <div className="container__principal__graficos">
-                <div>
-                    <h2 className="titulo__excel">Exportar excel</h2>
-                    <ReporteExcel />
-                </div>
                 <div className="container__graficos">
-                    <h3>Grafico de barras</h3>
+                    <h2>Grafico de barras</h2>
                     <Chart
                         chartType="Bar"
                         data={dataBarChart}
@@ -72,7 +68,7 @@ const Graficos = () => {
                     />
                 </div>
                 <div className="container__graficos">
-                    <h3>Grafico de torta</h3>
+                    <h2>Grafico de torta</h2>
                     <Chart
                         chartType="PieChart"
                         data={dataPieChart}
@@ -80,6 +76,10 @@ const Graficos = () => {
                         width={"100%"}
                         height={"400px"}
                     />
+                </div>
+                <div>
+                    <h2 className="titulo__excel">Exportar excel</h2>
+                    <ReporteExcel />
                 </div>
             </div>
         </>
