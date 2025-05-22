@@ -1,31 +1,61 @@
-.detalle-pedido-container {
-    padding: 20px;
-    font-family: Arial, sans-serif;
-  }
+.detalle-container {
+  min-width: 350px;
+  max-width: 90vw;
+  min-height: 420px;
+  /* Otras reglas que ya tienes */
+}
+
+.detalle-container h1 {
+  margin-top: 10px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.detalle-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.detalle-container ul li {
+  border-top: 1px solid #ddd;
+  padding: 8px 0;
+}
+
+.btn-volver {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-volver:hover {
+  background-color: #0056b3;
+}
+
+.ul-instrumento {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-right: 8px;
+  margin-bottom: 16px;
   
-  .detalle-pedido-container h1 {
-    margin-bottom: 16px;
-  }
   
-  .detalle-pedido-container ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .detalle-pedido-container ul li {
-    border-top: 1px solid #ddd;
-    padding: 8px 0;
-  }
-  
-  .btn-volver {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .btn-volver:hover {
-    background-color: #0056b3;
-  }
+}
+
+.instrumento-pedido-container {
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #ddd;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #e0dede93;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  margin-right: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.instrumento-pedido-info {
+  padding: 0 10px;
+  flex: 1;
+}

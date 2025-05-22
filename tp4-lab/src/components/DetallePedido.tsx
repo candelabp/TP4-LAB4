@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../styles/ListadoInstrumentos.css';
+import '../styles/DetallePedido.css';
 
 type Props = {
   id: string | number;
@@ -34,9 +34,7 @@ const DetallePedido: React.FC<Props> = ({ id, onClose }) => {
 
   return (
     <div>
-      <div>
-        <button onClick={onClose} className="botonX" type="button">✕</button>
-      </div>
+      <button onClick={onClose} className="botonX" type="button">✕</button>
       <div className="detalle-container">
         <h1>Detalles del Pedido</h1>
         <div className="detalle-info">
@@ -44,10 +42,10 @@ const DetallePedido: React.FC<Props> = ({ id, onClose }) => {
           <p><strong>Total:</strong> ${pedido.totalPedido ? pedido.totalPedido.toFixed(2) : '0.00'}</p>
           <h2>Detalles de los Productos</h2>
           {pedido.detallePedidos.length > 0 ? (
-            <ul>
+            <ul className='ul-instrumento'>
               {pedido.detallePedidos.map((detalle: any, index: number) => (
-                <li key={index} className="instrumento-container">
-                  <div className="instrumento-info">
+                <li key={index} className="instrumento-pedido-container">
+                  <div className="instrumento-pedido-info">
                     <p><strong>Instrumento:</strong> {detalle.instrumento.instrumento}</p>
                     <p><strong>Marca:</strong> {detalle.instrumento.marca}</p>
                     <p><strong>Modelo:</strong> {detalle.instrumento.modelo}</p>
