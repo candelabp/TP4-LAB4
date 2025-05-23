@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import "../styles/ReporteExcel.css";
+import Swal from 'sweetalert2'
+
 
 const ReporteExcel = () => {
   const [fechaInicio, setFechaInicio] = useState('');
@@ -7,7 +9,6 @@ const ReporteExcel = () => {
 
   const descargarExcel = async () => {
     const response = await fetch(`http://localhost:8080/api/pedidos/reportes?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`);
-
     if (response.ok) {
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
@@ -17,7 +18,16 @@ const ReporteExcel = () => {
       a.click();
       window.URL.revokeObjectURL(url);
     } else {
-      alert('Error al descargar el archivo');
+      
+      const data = await response.json();
+      Swal.fire({
+        position: "bottom-end",
+        icon: "error",
+        title: data.mensaje,
+        showConfirmButton: false,
+        timer: 2000,
+        width: "22em"
+      });
     }
   };
 
@@ -28,18 +38,26 @@ const ReporteExcel = () => {
         descargarExcel();
       }}
     >
-      <input
-        type="date"
-        value={fechaInicio}
-        onChange={(e) => setFechaInicio(e.target.value)}
-        required
-      />
-      <input
-        type="date"
-        value={fechaFin}
-        onChange={(e) => setFechaFin(e.target.value)}
-        required
-      />
+      <div className='container__containers'>
+        <div className='container__fecha'>
+          <label htmlFor="">Desde:</label>
+          <input
+            type="date"
+            value={fechaInicio}
+            onChange={(e) => setFechaInicio(e.target.value)}
+            required
+          />
+        </div>
+        <div className='container__fecha'>
+          <label htmlFor="">Hasta:</label>
+          <input
+            type="date"
+            value={fechaFin}
+            onChange={(e) => setFechaFin(e.target.value)}
+            required
+          />
+        </div>
+      </div>
       <button type="submit">Descargar Excel</button>
     </form>
   );

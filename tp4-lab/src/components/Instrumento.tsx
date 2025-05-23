@@ -56,6 +56,7 @@ const Instrumento: React.FC<Props> = ({ instrumento }) => {
           {/* </Link> */}
           <button
             className="btn-ver-detalle"
+            disabled={esAdmin}
             onClick={() => {
               if (!usuarioLogueado) {
                 Swal.fire({
@@ -87,7 +88,7 @@ const Instrumento: React.FC<Props> = ({ instrumento }) => {
                 });
               }
             }}
-          > Agregar al carrito
+            >Agregar al carrito
           </button>
         </div>
       </div>

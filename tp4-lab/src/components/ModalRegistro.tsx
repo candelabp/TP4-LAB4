@@ -4,9 +4,6 @@ import { Usuario } from '../Entidades/Usuario';
 import { Rol } from '../Entidades/Rol';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-
-const MySwal = withReactContent(Swal)
-
 type Props = {
     onClose: () => void;
     onOpenLogin: () => void;

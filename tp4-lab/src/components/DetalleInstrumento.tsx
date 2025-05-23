@@ -79,7 +79,7 @@ const DetalleInstrumento: React.FC<Props> = ({ id, onClose }) => {
 
         </div>
         {!fromTabla && (
-          <button className="boton-agregar" onClick={() => {
+          <button className="boton-agregar" disabled={esAdmin} onClick={() => {
             if (!usuarioLogueado) {
               Swal.fire({
                 position: "bottom-end",
@@ -90,7 +90,6 @@ const DetalleInstrumento: React.FC<Props> = ({ id, onClose }) => {
                 width: "20em"
               });
             } else if (esAdmin) {
-
               Swal.fire({
                 position: "bottom-end",
                 icon: "warning",

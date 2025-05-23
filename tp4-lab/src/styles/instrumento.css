@@ -71,6 +71,19 @@
 .boton-agregar-carrito:hover {
   background-color: #d0eaff;
 }
+.btn-ver-detalle:disabled{
+  background-color: #d4d4d4;
+  color: rgb(99, 98, 98);
+  border: 1px solid #e9e9e9;
+  cursor: not-allowed;
+}
+
+.boton-agregar:disabled{
+  background-color: #d4d4d4;
+  color: rgb(99, 98, 98);
+  border: 1px solid #e9e9e9;
+  cursor: not-allowed;
+}
 
 /* Alineación de botones */
 .instrumento-info .botones {
@@ -172,6 +185,14 @@
 
 .detalle-info .boton-agregar:hover {
   background-color: #d0eaff;
+}
+
+.detalle-info .boton-agregar:disabled {
+  background-color: #d4d4d4;
+  color: rgb(99, 98, 98);
+  border: 1px solid #e9e9e9;
+  cursor: not-allowed;
+
 }
 
 /* Botón Volver */
