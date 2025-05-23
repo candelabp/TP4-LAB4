@@ -18,7 +18,7 @@ const TablaInstrumentos: React.FC = () => {
     const [mostrarFormulario, setMostrarFormulario] = useState(false);
     const [instrumentoEditar, setInstrumentoEditar] = useState<InstrumentoType | null>(null);
     const [filtroActivo, setFiltroActivo] = useState<string>('todos');
-    const [mostrarModalDetalle, setMostrarModalDetalle] = useState<boolean>(false);
+    const [mostrarModalDetalleId, setMostrarModalDetalleId] = useState<string | null>(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -78,9 +78,6 @@ const TablaInstrumentos: React.FC = () => {
         setMostrarFormulario(false);
         setInstrumentoEditar(null);
     };
-
-
-    // ...existing code...
 
 
     return (
@@ -161,11 +158,11 @@ const TablaInstrumentos: React.FC = () => {
                                 <td>${instrumento.precio}</td>
                                 <td>{instrumento.categoria?.nombre || "Sin categoría"}</td>
                                 <td>
-                                    <button className="icon" onClick={() => setMostrarModalDetalle(true)}>Ver</button>
-                                    {mostrarModalDetalle && (
+                                    <button className="icon" onClick={() => setMostrarModalDetalleId(instrumento.id)}>Ver</button>
+                                    {mostrarModalDetalleId === instrumento.id && (
                                         <div className='modal-overlay'>
                                             <div className='modal-content'>
-                                                <DetalleInstrumento id={instrumento.id} onClose={() => setMostrarModalDetalle(false)} />
+                                                <DetalleInstrumento id={instrumento.id} onClose={() => setMostrarModalDetalleId(null)} />
                                             </div>
                                         </div>
                                     )}
