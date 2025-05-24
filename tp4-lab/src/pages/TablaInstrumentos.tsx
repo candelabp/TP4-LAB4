@@ -5,11 +5,9 @@ import { fetchCategorias } from '../utils/fetchCategorias';
 import { fetchInstrumentos } from '../utils/fetchInstrumentos';
 import "../styles/TablaInstrumentos.css";
 import FormularioInstrumento from '../components/FormularioInstrumento';
-import { saveAs } from 'file-saver';
 import Navbar from '../components/Navbar';
 import DetalleInstrumento from '../components/DetalleInstrumento';
 import '../styles/modal.css'
-// import Navbar from '../components/Navbar';
 
 const TablaInstrumentos: React.FC = () => {
     const [instrumentos, setInstrumentos] = useState<InstrumentoType[]>([]);
@@ -175,13 +173,11 @@ const TablaInstrumentos: React.FC = () => {
                                         <button
                                             className="icon"
                                             onClick={async () => {
-                                                // Cambiar el estado a activo
                                                 await fetch(`http://localhost:8080/api/instrumentos/${instrumento.id}`, {
                                                     method: 'PUT',
                                                     headers: { 'Content-Type': 'application/json' },
                                                     body: JSON.stringify({ ...instrumento, activo: true }),
                                                 });
-                                                // Recargar instrumentos
                                                 const nuevosInstrumentos = await fetchInstrumentos();
                                                 setInstrumentos(nuevosInstrumentos);
                                             }}
@@ -195,24 +191,8 @@ const TablaInstrumentos: React.FC = () => {
                                 <td>
                                     <button
                                         className="icon"
-                                        onClick={async () => {
-                                            const response = await fetch(`http://localhost:8080/api/instrumentos/${instrumento.id}/pdf`, {
-                                                method: 'GET',
-                                            });
-                                            if (response.ok) {
-                                                const blob = await response.blob();
-                                                const url = window.URL.createObjectURL(blob);
-                                                const a = document.createElement('a');
-                                                a.href = url;
-                                                a.download = `instrumento_${instrumento.id}.pdf`;
-                                                document.body.appendChild(a);
-                                                a.click();
-                                                a.remove();
-                                                window.URL.revokeObjectURL(url);
-                                            }
-                                            // Recargar instrumentos
-                                            const nuevosInstrumentos = await fetchInstrumentos();
-                                            setInstrumentos(nuevosInstrumentos);
+                                        onClick={() => {
+                                            window.open(`http://localhost:8080/api/instrumentos/pdf?idInstrumento=${instrumento.id}`, '_blank');
                                         }}
                                     >
                                         Exportar PDF
